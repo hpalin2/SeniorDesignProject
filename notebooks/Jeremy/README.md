@@ -1,4 +1,4 @@
-2025-09-2024 - Part Sourcing and PCB Planning
+**2025-09-2024 - Part Sourcing and PCB Planning**
 
 ---
 
