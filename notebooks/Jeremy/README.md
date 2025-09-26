@@ -17,3 +17,9 @@ We worked on creating a part list on google docs:https://docs.google.com/documen
 ---
 
 I worked on creating the PCB schematic in KiCad. While importing in the parts, I realized that the power mux we initially wanted to use didn't have a built in PMOS, so I suggested we use the TI TPS2120 instead to accomplish our goal. I imported in a custom layout to be used in KiCad.
+
+**2025-09-26 - PCB Schematic Work cont'd**
+
+---
+
+I finished creating the PCB schematic in KiCad. I worked with Suleymaan to finish wiring up the schematic according to our block diagram
