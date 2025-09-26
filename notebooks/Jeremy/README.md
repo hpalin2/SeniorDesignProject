@@ -1,4 +1,4 @@
-**2025-09-2024 - Part Sourcing and PCB Planning**
+**2025-09-24 - Part Sourcing and PCB Planning**
 
 ---
 
@@ -12,3 +12,8 @@ Split up PCB design
 
 We worked on creating a part list on google docs:https://docs.google.com/document/d/1e973Mm_vhnLTH5vz_4C17udLJVd2HXl1_8vYD8PnHUg/edit?usp=sharing
 
+**2025-09-25 - PCB Schematic Work**
+
+---
+
+I worked on creating the PCB schematic in KiCad. While importing in the parts, I realized that the power mux we initially wanted to use didn't have a built in PMOS, so I suggested we use the TI TPS2120 instead to accomplish our goal. I imported in a custom layout to be used in KiCad.
