@@ -3488,7 +3488,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 257.81 63.5 0)
 			(effects
 				(font
@@ -3816,7 +3816,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x5.4"
 			(at 177.4952 64.77 0)
 			(effects
 				(font
@@ -3884,7 +3884,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 219.71 140.97 0)
 			(effects
 				(font
@@ -3954,7 +3954,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 257.81 50.8 0)
 			(effects
 				(font
@@ -4016,7 +4016,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 171.45 55.118 90)
 			(effects
 				(font
@@ -4086,7 +4086,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
 			(at 236.22 52.07 0)
 			(effects
 				(font
@@ -4238,7 +4238,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x5.4"
 			(at 215.5952 140.97 0)
 			(effects
 				(font
@@ -4308,7 +4308,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 257.81 57.15 0)
 			(effects
 				(font
@@ -4372,7 +4372,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x5.4"
 			(at 234.6452 133.35 0)
 			(effects
 				(font
@@ -4442,7 +4442,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 163.322 45.72 90)
 			(effects
 				(font
@@ -4512,7 +4512,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 221.742 152.4 90)
 			(effects
 				(font
@@ -4715,7 +4715,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 165.1 62.23 0)
 			(effects
 				(font
@@ -4918,7 +4918,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
 			(at 236.22 68.58 0)
 			(effects
 				(font
@@ -4989,7 +4989,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x5.4"
 			(at 259.08 132.3848 0)
 			(effects
 				(font
@@ -5059,7 +5059,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 221.742 144.78 90)
 			(effects
 				(font
@@ -5309,7 +5309,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 42.672 67.31 90)
 			(effects
 				(font
@@ -5379,7 +5379,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 42.672 45.72 90)
 			(effects
 				(font
@@ -5582,7 +5582,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x5.4"
 			(at 168.6052 147.32 0)
 			(effects
 				(font
@@ -5650,7 +5650,7 @@
 				)
 			)
 		)
-		(property "Footprint" "YFP0020AAAA"
+		(property "Footprint" "Library:YFP0020AAAA"
 			(at 87.63 62.23 0)
 			(effects
 				(font
@@ -5776,7 +5776,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 257.81 69.85 0)
 			(effects
 				(font
@@ -5973,7 +5973,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0508_1220Metric"
 			(at 42.672 55.88 90)
 			(effects
 				(font

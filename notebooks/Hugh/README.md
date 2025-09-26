@@ -18,3 +18,4 @@ I worked on finding the correct Raspberry Pi parts including our touch screen. W
 9/26/25:
 
 We met today and worked on our schematic. I also created the drawing and emailed it to the machine shop. Upon doing so we have put them in the loop. We are going to try and finish our pcb today. I set up a meeting with Jack on Tuesday.
+I worked on developing the PCB and now it just needs to be routed. I found all the footprints for our parts
