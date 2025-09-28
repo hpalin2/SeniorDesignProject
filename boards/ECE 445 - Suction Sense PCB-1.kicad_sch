@@ -495,6 +495,351 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:Barrel_Jack"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.334 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Barrel_Jack"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.27 -1.016 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 1.27 -1.016 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "DC Barrel Jack"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "DC power barrel jack connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "BarrelJack*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Barrel_Jack_0_1"
+				(rectangle
+					(start -5.08 3.81)
+					(end 5.08 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.81 -2.54) (xy -2.54 -2.54) (xy -1.27 -1.27) (xy 0 -2.54) (xy 2.54 -2.54) (xy 5.08 -2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -3.302 1.905)
+					(mid -3.9343 2.54)
+					(end -3.302 3.175)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -3.302 1.905)
+					(mid -3.9343 2.54)
+					(end -3.302 3.175)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 3.683 3.175)
+					(end -3.302 1.905)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 2.54) (xy 3.81 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Barrel_Jack_1_1"
+				(pin passive line
+					(at 7.62 2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Conn_01x03_Socket"
 			(pin_names
 				(offset 1.016)
@@ -2609,6 +2954,16 @@
 		)
 		(uuid e0debb8b-7c29-4e21-8fbb-f4eba3dab208)
 	)
+	(text "+12VA\n"
+		(exclude_from_sim no)
+		(at 16.51 24.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "25b2aa37-c1cf-490b-9614-5b26cc851d59")
+	)
 	(text "BMS"
 		(exclude_from_sim no)
 		(at 170.688 23.622 0)
@@ -2678,6 +3033,12 @@
 		(uuid "271c82a5-cefe-49b3-968e-7df723faf780")
 	)
 	(junction
+		(at 36.83 41.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4ee92ffa-865c-46f9-a084-03225761fab1")
+	)
+	(junction
 		(at 233.68 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2739,6 +3100,16 @@
 	)
 	(wire
 		(pts
+			(xy 15.24 41.91) (xy 36.83 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "063a6e5f-c1ab-4b64-90e1-12101a11967b")
+	)
+	(wire
+		(pts
 			(xy 62.23 74.93) (xy 63.5 74.93)
 		)
 		(stroke
@@ -2779,6 +3150,16 @@
 	)
 	(wire
 		(pts
+			(xy 36.83 86.36) (xy 63.5 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1044da73-b4c0-45b1-8a21-d8530b5d3a19")
+	)
+	(wire
+		(pts
 			(xy 214.63 133.35) (xy 214.63 139.7)
 		)
 		(stroke
@@ -2796,6 +3177,16 @@
 			(type default)
 		)
 		(uuid "24c55d94-7cff-44eb-bbbe-44febc302654")
+	)
+	(wire
+		(pts
+			(xy 36.83 41.91) (xy 44.45 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d9f7c56-336c-4e6a-abc8-b84012d49cd9")
 	)
 	(wire
 		(pts
@@ -2876,6 +3267,16 @@
 			(type default)
 		)
 		(uuid "49876904-c27b-4f72-98d0-7b859f8c05b7")
+	)
+	(wire
+		(pts
+			(xy 24.13 25.4) (xy 15.24 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5492d205-a27c-4199-a795-e463b361eea1")
 	)
 	(wire
 		(pts
@@ -2979,6 +3380,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 86.36) (xy 63.5 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a33ee780-ba50-4a63-b6b4-ea846297cdb5")
+	)
+	(wire
+		(pts
 			(xy 175.26 53.34) (xy 176.53 53.34)
 		)
 		(stroke
@@ -3039,16 +3450,6 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 41.91) (xy 36.83 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c9e27a11-43e6-4c1d-ad08-1b6c5ac94136")
-	)
-	(wire
-		(pts
 			(xy 176.53 64.77) (xy 176.53 67.31)
 		)
 		(stroke
@@ -3106,6 +3507,16 @@
 			(type default)
 		)
 		(uuid "e0585db5-0727-41cf-925a-f56dcf6e7b0e")
+	)
+	(wire
+		(pts
+			(xy 15.24 25.4) (xy 15.24 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e4b1f992-f39b-4176-9f1b-8ee1b512639b")
 	)
 	(wire
 		(pts
@@ -3790,6 +4201,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 29.21 25.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "41b61980-77cd-4e86-8d12-da7374681cab")
+		(property "Reference" "J3"
+			(at 30.48 25.3999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Battery Connector"
+			(at 30.48 27.9399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinSocket_2.00mm:PinSocket_1x02_P2.00mm_Vertical"
+			(at 29.21 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 29.21 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 29.21 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8c4d8aa3-e1ec-413d-810e-6a3d0adfbd8d")
+		)
+		(pin "1"
+			(uuid "2f2ecf3b-756a-4f95-a12f-a1c37080e268")
+		)
+		(instances
+			(project ""
+				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 176.53 60.96 0)
 		(unit 1)
@@ -3921,6 +4402,72 @@
 			(project ""
 				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
 					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 24.13 27.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "496b3466-e774-4387-9c8b-35fc9774136d")
+		(property "Reference" "#PWR015"
+			(at 24.13 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 24.13 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 24.13 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 24.13 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 24.13 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "49f7760e-ea0a-4e6f-8351-be096cdf97ca")
+		)
+		(instances
+			(project ""
+				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -4621,6 +5168,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Barrel_Jack")
+		(at 29.21 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "87442efa-593c-4a28-8c7b-ddebaea2689a")
+		(property "Reference" "J4"
+			(at 29.21 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Barrel_Jack"
+			(at 29.21 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_CUI_PJ-036AH-SMT_Horizontal"
+			(at 30.48 89.916 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.48 89.916 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "DC Barrel Jack"
+			(at 29.21 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f6a230e5-84b3-4292-82bf-840cde090964")
+		)
+		(pin "2"
+			(uuid "c595ca0e-35ca-4d7b-8ea3-a02f37cded11")
+		)
+		(instances
+			(project ""
+				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+12V")
 		(at 36.83 41.91 90)
 		(unit 1)
@@ -4639,13 +5254,12 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+12V"
-			(at 33.02 41.9099 90)
+		(property "Value" "+12VA"
+			(at 35.56 39.37 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4776,13 +5390,12 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+12V"
-			(at 59.69 74.9299 90)
+		(property "Value" "+12VB"
+			(at 62.23 72.39 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -5482,6 +6095,72 @@
 			(project ""
 				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 36.83 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c119fd26-394a-4bfb-9ae9-561fed8b3927")
+		(property "Reference" "#PWR016"
+			(at 36.83 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 36.83 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 36.83 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 36.83 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ee85d09f-9a53-40c1-83aa-4c6290f00840")
+		)
+		(instances
+			(project "ECE 445 - Suction Sense PCB-1"
+				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
