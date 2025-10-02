@@ -23,3 +23,12 @@ I worked on creating the PCB schematic in KiCad. While importing in the parts, I
 ---
 
 I finished creating the PCB schematic in KiCad. I worked with Suleymaan to finish wiring up the schematic according to our block diagram
+
+
+**2025-10/1 - Meeting With Mentor**
+
+---
+
+Today my team and I met with a mentor, Jack Blevins, to go over our PCB design schematic. Overall he was satisfied with our layout, but suggested that we switch over to a charging circuit instead of the power mux we had originally planned to account for random power surges that might blow our system.
+
+I also made some changes to our pcb schematic to account for us using a 3.7V coin cell instead of outright 12V input.
