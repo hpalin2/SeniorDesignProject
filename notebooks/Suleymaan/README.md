@@ -8,3 +8,10 @@ we were able to complete the entire thing.
 9/27/2025
 routed PCB, will have to verify it and make sure everything is proper later
 
+10/4/2025
+MEt with team and worked on PCB had issue with pad width
+
+10/8/2025
+met with team, worked on design document
+
+
