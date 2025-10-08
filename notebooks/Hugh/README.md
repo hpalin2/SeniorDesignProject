@@ -23,3 +23,5 @@ I worked on developing the PCB and now it just needs to be routed. I found all t
 10/3/25:
 
 This week we discussed multiple times the breadboard design. We have about finished our pcb design. Today I worked on finishing the routing of the pcb after we made changes, we added a charging circuit. We did this after talking to Jack Blevins, who suggested we just directly power our MCU from the battery. This way you won't have to switch out the coincell battery, it will recharge off the wall. Now we need to replace our power mux with a different one with different packaging
+
+10/5/25: I fixed the pcb up and fixed some errors, uploaded it to pcbway to do one last review before we send it to the team to print it. Helped Suley with pcb today and had him update the schematic with the new footer one of the TAs sent us.
