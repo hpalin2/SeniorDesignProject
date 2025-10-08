@@ -48,3 +48,25 @@ For our PCB, it turns out that we couldn't use the powermux module that we picke
 ---
 
 I was finally able to wire up the sensor properly and test it, I wrote some C code to detect whether an object was within 10cm; if so, one of the gpio pins would output a voltage to light up an led. This is intended to show the functionality of our motion detector.
+
+**2025-10/6 - Software Planning**
+
+---
+
+Today I began planning the software architecture for our Suction Sense module. 
+First, I broke down our system requirements into high-level architecture:
+
+1. Local Message Bus – The ESP32 requires a reliable mechanism to transmit suction and motion sensor data over Wi-Fi or LAN to the Raspberry Pi. To achieve this, I plan to use an MQTT broker running locally on the Pi, allowing each ESP32 node to publish messages to specific topics.
+
+2. Ingestion Service – This service will run continuously on the Raspberry Pi, subscribing to the MQTT topics and collecting incoming data from all operating rooms. It will validate and store the telemetry in a local database. This will allow us to generate historical reports and also maintain functionality in case one of the services gets interrupted.
+
+3. Rules Engine – Once data is being stored and updated, the next layer will process it to determine the current state of each operating room. The engine will compare suction activity with the schedule data and identify when suction has unnecessary usage.
+
+4. User Interface (UI) – A local web dashboard will be hosted on the Raspberry Pi and displayed on the 7″ touchscreen. It will provide a color-coded status view of each operating room (e.g., green for normal operation, red for unnecessary suction). The interface will refresh automatically using WebSocket connections for real-time updates.
+
+5. Data Storage – A lightweight SQLite/PostgreSQL database will hold suction data, schedule information, and device data. This can be used for historical data reports
+
+**2025-10/6 - Software Planning pt.2**
+
+---
+
