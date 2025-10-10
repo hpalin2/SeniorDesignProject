@@ -27,3 +27,4 @@ This week we discussed multiple times the breadboard design. We have about finis
 10/5/25: I fixed the pcb up and fixed some errors, uploaded it to pcbway to do one last review before we send it to the team to print it. Helped Suley with pcb today and had him update the schematic with the new footer one of the TAs sent us.
 
 10/8/25: I fixed the pcb and submitted it under first pcb order. Specifically fixed the pad width of one of our ICs. Split up the work of the design doc and are looking forward to meeting again on Friday. I will be working on the design doc tomorrow.
+10/10/25: We worked on the design doc together and developed our schedule. We have fully created a robust schedule that will allow us to complete our project on time. Talking to Suley it seems we need to make pcb revisions such as the voltage divider and buck converter.
