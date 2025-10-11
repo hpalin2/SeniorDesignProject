@@ -66,7 +66,15 @@ First, I broke down our system requirements into high-level architecture:
 
 5. Data Storage – A lightweight SQLite/PostgreSQL database will hold suction data, schedule information, and device data. This can be used for historical data reports
 
-**2025-10/6 - Software Planning pt.2**
+**2025-10/8 - Design Document Planning**
 
 ---
 
+Met with group to go over new Design Document requirements and effectively split up the work
+
+
+**2025-10/10 - Design Document Work**
+
+---
+
+Worked on the MCU Subsystem(Requirements + Verification) and Pi + Software Subsystem(Requirements + Verification) sections of our design document. Additionally, we also met and planned out our schedule for the rest of the semester
