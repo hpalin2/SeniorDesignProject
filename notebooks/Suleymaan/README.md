@@ -14,4 +14,8 @@ MEt with team and worked on PCB had issue with pad width
 10/8/2025
 met with team, worked on design document
 
+10/11/2025
+Realzied we had an issue with a minimum threshold voltage to use the Powermux so had a to add aboost converter to step up voltage form 3.7v to 5v
+
+
 
