@@ -91,3 +91,12 @@ Continued work on Design Document. I created the cost analysis table and additio
 ---
 
 The goal is to be able to build and run a simple crow web app. I was able to host a local crow server and build/run it properly today. I'm hoping to present it to my teammates tomorrow and get them set up on the codebase.
+
+**2025-10/15 - Software Design Stage 1**
+
+Email Epic Person
+
+---
+1. Set up simple crow app -> make webpage Hugh/Suley
+2. Set up a MQTT Server, stream data from motion -> Jeremy
+3. Inside Crow app, set up MQTT Client -> subscribed to server on ESP32 -> Jeremy
