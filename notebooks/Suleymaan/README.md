@@ -18,4 +18,7 @@ met with team, worked on design document
 Realzied we had an issue with a minimum threshold voltage to use the Powermux so had a to add aboost converter to step up voltage form 3.7v to 5v
 
 
+10/15/2025
+Met with team to overview software requriements downloaded crow to start writing client code
+
 
