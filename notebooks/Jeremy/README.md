@@ -78,3 +78,16 @@ Met with group to go over new Design Document requirements and effectively split
 ---
 
 Worked on the MCU Subsystem(Requirements + Verification) and Pi + Software Subsystem(Requirements + Verification) sections of our design document. Additionally, we also met and planned out our schedule for the rest of the semester
+
+**2025-10/13 - Design Document Work cont'd**
+
+---
+
+Continued work on Design Document. I created the cost analysis table and additionally added onto the software and MCU subsystems, as well as contributing to the overall formatting of the document. We submitted our document today.
+
+
+**2025-10/14 - Software Design Stage 1**
+
+---
+
+The goal is to be able to build and run a simple crow web app. I was able to host a local crow server and build/run it properly today. I'm hoping to present it to my teammates tomorrow and get them set up on the codebase.
