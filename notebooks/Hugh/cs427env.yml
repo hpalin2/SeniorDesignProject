@@ -1,0 +1,10 @@
+name: cs427
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ant=1.10.14=h859abef_1
+  - gradle=8.10.0=h707e725_1
+  - maven=3.8.7=ha770c72_0
+  - openjdk=8.0.412=h2b85faf_2
+prefix: /home/hugh/anaconda3/envs/cs427
