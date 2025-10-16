@@ -94,9 +94,25 @@ The goal is to be able to build and run a simple crow web app. I was able to hos
 
 **2025-10/15 - Software Design Stage 1**
 
-Email Epic Person
+Today, my team and I met to discuss software planning as well as machine shop logistics. Below is information I gathered on setting up the MQTT broker/client for our app to read telemetry from the ESP32
 
 ---
 1. Set up simple crow app -> make webpage Hugh/Suley
 2. Set up a MQTT Server, stream data from motion -> Jeremy
 3. Inside Crow app, set up MQTT Client -> subscribed to server on ESP32 -> Jeremy
+
+Mosquitto (broker): runs on Mac/Pi, listens on port, routes messages between clients.
+
+Paho (client library): used inside C++ Crow service to connect to the broker, subscribe/publish.
+
+ESP32 client: Runs arduiono sketch that connects to the broker and publishes telemetry.
+
+I got mosquitto installed. Here are the steps I took to test it:
+
+1. First, install mosquitto using homebrew. brew install mosquitto
+2. Run mosquitto. This will create a broker on port 1883
+3. Create mosquitto subscriber. mosquitto_sub -h 127.0.0.1 -p 1883 -t 'test/#' -v
+4. Create mosquitto publisher. mosquitto_pub -h 127.0.0.1 -p 1883 -t 'test/hello' -m 'hi'
+
+On the subscriber terminal, you should be able to see "test/hello hi" outputted.
+
