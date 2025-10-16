@@ -30,3 +30,9 @@ This week we discussed multiple times the breadboard design. We have about finis
 10/10/25: We worked on the design doc together and developed our schedule. We have fully created a robust schedule that will allow us to complete our project on time. Talking to Suley it seems we need to make pcb revisions such as the voltage divider and buck converter.
 
 10/11/25: Since Friday I have been putting in a bit of work to the design document. I am redoing some of our subsystems such as the sensor subsystem. We are planning to finish it on sunday.
+
+10/13/25: Added our final changes to design document and submitted a new PCB for Lukas to order.
+
+10/15/25: Talked to Greg about senior design project, we found out we need to find what valve size we need to have good flow for our sensor to still detect. We also need a shop vac hose size. As soon as we get that flow rate sensor hand it off to him and he will make it fit. We met and discussed how to split up the app. First Suley and I will try and get it working on our PCs (mine will be harder since they are both Mac OS). Then we will work on building the first webapp.
+
+10/16/25: Worked on the webapp and built those changes throughout the day, and got it working on my computer.
