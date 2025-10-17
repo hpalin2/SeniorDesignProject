@@ -37,4 +37,4 @@ This week we discussed multiple times the breadboard design. We have about finis
 
 10/16/25: Worked on the webapp and built those changes throughout the day, and got it working on my computer. Got the changes and made a working html server with crows framework. Setting up crow is a pain on ubuntu since it doesn't have a build you can download from conda. Had to manually compile it and install it on my PC. Added my code changes to codeH.
 
-10/17/25: Edited my environment to get crow working on laptop as well.
+10/17/25: Edited my environment to get crow working on laptop as well. I created the basic crow framework and design of our webapp that will be displayed onto the raspberry pi. It needs to be integrated with live data and not static using a sqlite database that will pull a history of the OR schedule data and the flow rate history.
