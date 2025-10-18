@@ -19,6 +19,103 @@ struct OperatingRoom {
     std::string schedule;
     bool suction_on;
 };
+// ───────────────────────────────────────────────
+// Struct representing a room event
+// ───────────────────────────────────────────────
+struct RoomEvent {
+    std::string procedure;
+    std::string start_time;
+    std::string end_time;
+    bool active;
+};
+
+RoomEvent get_current_event_for_room(sqlite3* db, int room_id)
+{
+    RoomEvent event{"Idle", "", "", false};
+
+    // Get current time
+    auto now = std::chrono::system_clock::now();
+    std::time_t t = std::chrono::system_clock::to_time_t(now);
+    std::tm local_tm{};
+#ifdef _WIN32
+    localtime_s(&local_tm, &t);
+#else
+    localtime_r(&t, &local_tm);
+#endif
+    char date_buf[11];
+    char time_buf[6];
+    std::strftime(date_buf, sizeof(date_buf), "%Y-%m-%d", &local_tm);
+    std::strftime(time_buf, sizeof(time_buf), "%H:%M", &local_tm);
+
+    const char* sql = R"(
+        SELECT procedure, start_time, end_time
+        FROM room_schedule
+        WHERE room_id = ? AND date = ?
+        ORDER BY start_time;
+    )";
+
+    sqlite3_stmt* stmt;
+    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, room_id);
+    sqlite3_bind_text(stmt, 2, date_buf, -1, SQLITE_TRANSIENT);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        std::string proc = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        std::string start = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        std::string end = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+
+        if (time_buf >= start && time_buf <= end) {
+            event = {proc, start, end, true};
+            break;
+        }
+    }
+    sqlite3_finalize(stmt);
+    return event;
+}
+
+void update_suction(sqlite3* db, int room_id, bool suction_on)
+{
+    // Get current state
+    const char* select_sql = "SELECT suction_on FROM suction_state WHERE room_id = ?";
+    sqlite3_stmt* stmt;
+    sqlite3_prepare_v2(db, select_sql, -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, room_id);
+    bool prev_state = false;
+    bool exists = false;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        prev_state = sqlite3_column_int(stmt, 0);
+        exists = true;
+    }
+    sqlite3_finalize(stmt);
+
+    // If new state is different, log it
+    if (!exists || prev_state != suction_on) {
+        const char* log_sql =
+            "INSERT INTO suction_log (room_id, timestamp, suction_on) VALUES (?, ?, ?)";
+        sqlite3_prepare_v2(db, log_sql, -1, &stmt, nullptr);
+        sqlite3_bind_int(stmt, 1, room_id);
+        sqlite3_bind_text(stmt, 2, format_timestamp().c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(stmt, 3, suction_on ? 1 : 0);
+        sqlite3_step(stmt);
+        sqlite3_finalize(stmt);
+    }
+
+    // Update current state table
+    const char* upsert_sql = R"(
+        INSERT INTO suction_state (room_id, suction_on, last_updated)
+        VALUES (?, ?, ?)
+        ON CONFLICT(room_id) DO UPDATE SET
+            suction_on=excluded.suction_on,
+            last_updated=excluded.last_updated;
+    )";
+    sqlite3_prepare_v2(db, upsert_sql, -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, room_id);
+    sqlite3_bind_int(stmt, 2, suction_on ? 1 : 0);
+    sqlite3_bind_text(stmt, 3, format_timestamp().c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+}
+
 
 // ───────────────────────────────────────────────
 // Utility: format timestamp as string
@@ -68,6 +165,18 @@ sqlite3* init_database(const std::string& db_name)
         );
     )";
 
+    const char* create_schedule_table = R"(
+        CREATE TABLE IF NOT EXISTS room_schedule (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            room_id INTEGER,
+            procedure TEXT,
+            start_time TEXT,
+            end_time TEXT,
+            date TEXT,
+            FOREIGN KEY (room_id) REFERENCES operating_rooms(id)
+        );
+    )";
+
     char* errMsg = nullptr;
     if (sqlite3_exec(db, create_rooms_table, nullptr, nullptr, &errMsg) != SQLITE_OK) {
         CROW_LOG_ERROR << "Failed to create operating_rooms: " << errMsg;
@@ -77,10 +186,15 @@ sqlite3* init_database(const std::string& db_name)
         CROW_LOG_ERROR << "Failed to create suction_history: " << errMsg;
         sqlite3_free(errMsg);
     }
+    if (sqlite3_exec(db, create_schedule_table, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        CROW_LOG_ERROR << "Failed to create room_schedule: " << errMsg;
+        sqlite3_free(errMsg);
+    }
 
     CROW_LOG_INFO << "Database initialized successfully.";
     return db;
 }
+
 
 // ───────────────────────────────────────────────
 // Insert a new operating room record
@@ -137,7 +251,7 @@ bool get_latest_suction_status(sqlite3* db, int room_id)
 std::vector<OperatingRoom> load_rooms(sqlite3* db)
 {
     std::vector<OperatingRoom> rooms;
-    const char* sql = "SELECT id, room_number, procedure, schedule FROM operating_rooms";
+    const char* sql = "SELECT id, room_number FROM operating_rooms";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
 
@@ -145,8 +259,16 @@ std::vector<OperatingRoom> load_rooms(sqlite3* db)
         OperatingRoom room;
         room.id = sqlite3_column_int(stmt, 0);
         room.room_number = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        room.procedure = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
-        room.schedule = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+
+        RoomEvent current = get_current_event_for_room(db, room.id);
+        if (current.active) {
+            room.procedure = current.procedure;
+            room.schedule = current.start_time + " - " + current.end_time;
+        } else {
+            room.procedure = "Idle / Unscheduled";
+            room.schedule = "—";
+        }
+
         room.suction_on = get_latest_suction_status(db, room.id);
         rooms.push_back(room);
     }
