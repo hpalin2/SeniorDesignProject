@@ -5,7 +5,7 @@
         "name": "Run Crow Server",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/code/server",
+        "program": "${workspaceFolder}/codeH/server",
         "cwd": "${workspaceFolder}/code",
         "MIMode": "lldb",
         "preLaunchTask": "Build Crow Server",

@@ -116,3 +116,9 @@ I got mosquitto installed. Here are the steps I took to test it:
 
 On the subscriber terminal, you should be able to see "test/hello hi" outputted.
 
+Change Mosquitto config by doing code /opt/homebrew/etc/mosquitto/mosquitto.conf 
+and inputting this: 
+listener 1883 0.0.0.0
+allow_anonymous true
+
+Then run mosquitto -v -c /opt/homebrew/etc/mosquitto/mosquitto.conf
