@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+std::string format_timestamp();
+
 // ───────────────────────────────────────────────
 // Struct representing an operating room
 // ───────────────────────────────────────────────

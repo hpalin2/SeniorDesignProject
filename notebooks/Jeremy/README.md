@@ -116,9 +116,29 @@ I got mosquitto installed. Here are the steps I took to test it:
 
 On the subscriber terminal, you should be able to see "test/hello hi" outputted.
 
+
+**2025-10/17 - Software Design Stage 1 cont'd**
+
+Met with group to discuss software design plan and attempt to set up the MQTT publisher on the ESP32. I was having some issues with brownout, so I planned on going to the lab on Saturday to utilize the DC power supply
+
+**2025-10/17 - Software Design Stage 1 cont'd**
+
+Unfortunately, even with the DC power supply, my esp32 seems to still be browning out. However, I discovered that to actually receive messages I need to manually configure my mosquitto protocol as shown below:
+
 Change Mosquitto config by doing code /opt/homebrew/etc/mosquitto/mosquitto.conf 
 and inputting this: 
 listener 1883 0.0.0.0
 allow_anonymous true
 
 Then run mosquitto -v -c /opt/homebrew/etc/mosquitto/mosquitto.conf
+
+I'm struggling to understand why it's still browning out however, since the DC power supply of 5V should be stable. I'm planning on consulting a TA or someone more experienced for some help
+
+**2025-10/17 - Software Design Stage 1 cont'd**
+
+Hugh did a good job getting the UI mocked up, so today I just figured out how to compile it on my end to get the static website running. I plan to demo this on Tuesday as a part of the capstone meeting with sharon. 
+
+Build command for mac: clang++ -std=c++17 \
+  -I"$(brew --prefix crow)/include" \
+  -I"$(brew --prefix asio)/include" \
+  -pthread -o server main.cpp
