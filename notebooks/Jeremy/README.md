@@ -142,3 +142,20 @@ Build command for mac: clang++ -std=c++17 \
   -I"$(brew --prefix crow)/include" \
   -I"$(brew --prefix asio)/include" \
   -pthread -o server main.cpp
+
+**2025-10/20 - ESP Debugging**
+
+  The ESP32 module we bought continuously browns out when we try running basic Wifi and BLE sketches, which doesn't make any sense. I went to the lab with Suleymaan to try and solve the issue by supplying DC power to the board instead of laptop power, but this didn't solve the issue. After an entire day of debugging, I think it might be an issue with the dev board
+
+
+**2025-10/21 - Suction Sense Check-In**
+
+I attended a meeting with Sharon and Nathan to do a quick check-in with the capstone course director people. I went over the schedule we made for the project, and gave a quick software demo of our static website UI.
+
+**2025-10/22 - Group meeting**
+
+Hugh and I attended OH at 4pm, and we were able to get our hands on a different ESP32 Dev Board. It is able to successfully run both the wifi and ble sketch, and we were able to check it out which solved a huge roadblock
+
+We had our team meeting today at 6pm
+
+  
