@@ -158,4 +158,24 @@ Hugh and I attended OH at 4pm, and we were able to get our hands on a different 
 
 We had our team meeting today at 6pm
 
-  
+
+Software Recap:
+
+To live update site:
+run ./server
+open another terminal, run sq3lite suction_sense.db -> this opens the DB (Run direct SQL commands)
+		- DB updates, but page needs manual refresh -> Page should automatically live update and refresh
+		- DB needs to be modified to track state, currently tracks history and updates with every new telemtry update 
+
+
+**2025-10/23 - ESP32 MQTT Publishing**
+
+I was able to publish mock telemtry data from the ESP32 to the locally hosted MQTT broker, and also have it read properly by the MQTT Subscriber.
+
+To get this set up:
+1. Open up a terminal and run "mosquitto". This starts the MQTT Broker
+2. Open up a second terminal. Run "mosquitto_sub -h (Your broker machine's IP) -p 1883 -t 'suction/#' -v" 
+    - On the ESP, this function: mqtt.publish("suction/dev1/telemetry", payload.c_str()) published the string telemetry payload to the topic suction/dev1/telemetry, so in the terminal command the 'suction/#' directs the subscription to this topic
+3. Flash the "esp_mqtt_test.c" sketch to the esp32
+4. You should see an output of suction/dev1/telemetry {"room_id":"OR-DEV","flow_lpm":0.45,"motion":true} appear in the sub terminal
+
