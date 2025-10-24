@@ -1,6 +1,6 @@
 #define TRIG_PIN 18
 #define ECHO_PIN 4      // or 34/35/32/33 (input-only) if you want super-stable inputs
-#define LED_PIN 14
+#define LED_PIN 
 
 // Distance thresholds with a little hysteresis to avoid flicker
 const float LED_ON_CM  = 10.0;  // turn on when <= 10 cm
