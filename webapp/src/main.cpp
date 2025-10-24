@@ -31,6 +31,11 @@ struct RoomEvent {
     bool active;
 };
 
+// Forward declarations for functions defined later but used earlier
+bool get_latest_suction_status(sqlite3* db, int room_id);
+void insert_room(sqlite3* db, const OperatingRoom& r);
+void log_suction_status(sqlite3* db, int room_id, bool suction_on);
+
 RoomEvent get_current_event_for_room(sqlite3* db, int room_id)
 {
     RoomEvent event{"Idle", "", "", false};
@@ -56,22 +61,26 @@ RoomEvent get_current_event_for_room(sqlite3* db, int room_id)
         ORDER BY start_time;
     )";
 
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-    sqlite3_bind_int(stmt, 1, room_id);
-    sqlite3_bind_text(stmt, 2, date_buf, -1, SQLITE_TRANSIENT);
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, room_id);
+        sqlite3_bind_text(stmt, 2, date_buf, -1, SQLITE_TRANSIENT);
 
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        std::string proc = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        std::string start = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        std::string end = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            const unsigned char* p0 = sqlite3_column_text(stmt, 0);
+            const unsigned char* p1 = sqlite3_column_text(stmt, 1);
+            const unsigned char* p2 = sqlite3_column_text(stmt, 2);
+            std::string proc = p0 ? reinterpret_cast<const char*>(p0) : "";
+            std::string start = p1 ? reinterpret_cast<const char*>(p1) : "";
+            std::string end = p2 ? reinterpret_cast<const char*>(p2) : "";
 
-        if (time_buf >= start && time_buf <= end) {
-            event = {proc, start, end, true};
-            break;
+            if (!start.empty() && !end.empty() && time_buf >= start && time_buf <= end) {
+                event = {proc, start, end, true};
+                break;
+            }
         }
     }
-    sqlite3_finalize(stmt);
+    if (stmt) sqlite3_finalize(stmt);
     return event;
 }
 
@@ -79,7 +88,7 @@ void update_suction(sqlite3* db, int room_id, bool suction_on)
 {
     // Get current state
     const char* select_sql = "SELECT suction_on FROM suction_state WHERE room_id = ?";
-    sqlite3_stmt* stmt;
+    sqlite3_stmt* stmt = nullptr;
     sqlite3_prepare_v2(db, select_sql, -1, &stmt, nullptr);
     sqlite3_bind_int(stmt, 1, room_id);
     bool prev_state = false;
@@ -148,49 +157,74 @@ sqlite3* init_database(const std::string& db_name)
         return nullptr;
     }
 
-    const char* create_rooms_table = R"(
-        CREATE TABLE IF NOT EXISTS operating_rooms (
+    // Enable foreign keys
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, "PRAGMA foreign_keys = ON;", nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        CROW_LOG_ERROR << "Failed to enable foreign keys: " << errMsg;
+        sqlite3_free(errMsg);
+        errMsg = nullptr;
+    }
+
+    // Create rooms table
+    const char* create_rooms = R"(
+        CREATE TABLE IF NOT EXISTS rooms (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            room_number TEXT NOT NULL,
-            procedure TEXT,
-            schedule TEXT
+            room_number TEXT UNIQUE NOT NULL
         );
     )";
+    if (sqlite3_exec(db, create_rooms, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        CROW_LOG_ERROR << "Failed to create rooms: " << errMsg;
+        sqlite3_free(errMsg);
+        errMsg = nullptr;
+    }
 
-    const char* create_history_table = R"(
-        CREATE TABLE IF NOT EXISTS suction_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            room_id INTEGER,
-            timestamp TEXT,
-            suction_on INTEGER,
-            FOREIGN KEY (room_id) REFERENCES operating_rooms(id)
-        );
-    )";
-
-    const char* create_schedule_table = R"(
+    // Create room_schedule table referencing rooms(id)
+    const char* create_room_schedule = R"(
         CREATE TABLE IF NOT EXISTS room_schedule (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            room_id INTEGER,
+            room_id INTEGER NOT NULL,
             procedure TEXT,
             start_time TEXT,
             end_time TEXT,
             date TEXT,
-            FOREIGN KEY (room_id) REFERENCES operating_rooms(id)
+            FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
         );
     )";
-
-    char* errMsg = nullptr;
-    if (sqlite3_exec(db, create_rooms_table, nullptr, nullptr, &errMsg) != SQLITE_OK) {
-        CROW_LOG_ERROR << "Failed to create operating_rooms: " << errMsg;
-        sqlite3_free(errMsg);
-    }
-    if (sqlite3_exec(db, create_history_table, nullptr, nullptr, &errMsg) != SQLITE_OK) {
-        CROW_LOG_ERROR << "Failed to create suction_history: " << errMsg;
-        sqlite3_free(errMsg);
-    }
-    if (sqlite3_exec(db, create_schedule_table, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+    if (sqlite3_exec(db, create_room_schedule, nullptr, nullptr, &errMsg) != SQLITE_OK) {
         CROW_LOG_ERROR << "Failed to create room_schedule: " << errMsg;
         sqlite3_free(errMsg);
+        errMsg = nullptr;
+    }
+
+    // Create suction_state (current state per room)
+    const char* create_suction_state = R"(
+        CREATE TABLE IF NOT EXISTS suction_state (
+            room_id INTEGER PRIMARY KEY,
+            suction_on INTEGER NOT NULL DEFAULT 0,
+            last_updated TEXT,
+            FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
+        );
+    )";
+    if (sqlite3_exec(db, create_suction_state, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        CROW_LOG_ERROR << "Failed to create suction_state: " << errMsg;
+        sqlite3_free(errMsg);
+        errMsg = nullptr;
+    }
+
+    // Create suction_log (history)
+    const char* create_suction_log = R"(
+        CREATE TABLE IF NOT EXISTS suction_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            room_id INTEGER,
+            timestamp TEXT,
+            suction_on INTEGER,
+            FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
+        );
+    )";
+    if (sqlite3_exec(db, create_suction_log, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        CROW_LOG_ERROR << "Failed to create suction_log: " << errMsg;
+        sqlite3_free(errMsg);
+        errMsg = nullptr;
     }
 
     CROW_LOG_INFO << "Database initialized successfully.";
@@ -199,68 +233,22 @@ sqlite3* init_database(const std::string& db_name)
 
 
 // ───────────────────────────────────────────────
-// Insert a new operating room record
-// ───────────────────────────────────────────────
-void insert_room(sqlite3* db, const OperatingRoom& room)
-{
-    const char* sql = "INSERT INTO operating_rooms (room_number, procedure, schedule) VALUES (?, ?, ?)";
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-    sqlite3_bind_text(stmt, 1, room.room_number.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, room.procedure.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, room.schedule.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
-}
-
-// ───────────────────────────────────────────────
-// Log suction status change for a room
-// ───────────────────────────────────────────────
-void log_suction_status(sqlite3* db, int room_id, bool suction_on)
-{
-    const char* sql = "INSERT INTO suction_history (room_id, timestamp, suction_on) VALUES (?, ?, ?)";
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-    sqlite3_bind_int(stmt, 1, room_id);
-    sqlite3_bind_text(stmt, 2, format_timestamp().c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(stmt, 3, suction_on ? 1 : 0);
-    sqlite3_step(stmt);
-    sqlite3_finalize(stmt);
-}
-
-// ───────────────────────────────────────────────
-// Query: get most recent suction status for a room
-// ───────────────────────────────────────────────
-bool get_latest_suction_status(sqlite3* db, int room_id)
-{
-    const char* sql = "SELECT suction_on FROM suction_history WHERE room_id = ? ORDER BY id DESC LIMIT 1";
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-    sqlite3_bind_int(stmt, 1, room_id);
-
-    bool suction_on = false;
-    if (sqlite3_step(stmt) == SQLITE_ROW) {
-        suction_on = sqlite3_column_int(stmt, 0) != 0;
-    }
-
-    sqlite3_finalize(stmt);
-    return suction_on;
-}
-
-// ───────────────────────────────────────────────
 // Query: load all operating rooms
 // ───────────────────────────────────────────────
 std::vector<OperatingRoom> load_rooms(sqlite3* db)
 {
     std::vector<OperatingRoom> rooms;
-    const char* sql = "SELECT id, room_number FROM operating_rooms";
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    const char* sql = "SELECT id, room_number FROM rooms ORDER BY id";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        return rooms;
+    }
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         OperatingRoom room;
         room.id = sqlite3_column_int(stmt, 0);
-        room.room_number = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        const unsigned char* txt = sqlite3_column_text(stmt, 1);
+        room.room_number = txt ? reinterpret_cast<const char*>(txt) : "";
 
         RoomEvent current = get_current_event_for_room(db, room.id);
         if (current.active) {
@@ -373,6 +361,114 @@ crow::json::wvalue rooms_to_json(const std::vector<OperatingRoom>& rooms)
 }
 
 // ───────────────────────────────────────────────
+// Implementations for previously missing functions
+// ───────────────────────────────────────────────
+
+bool get_latest_suction_status(sqlite3* db, int room_id)
+{
+    const char* sql = "SELECT suction_on FROM suction_state WHERE room_id = ?";
+    sqlite3_stmt* stmt = nullptr;
+    bool result = false;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, room_id);
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            result = sqlite3_column_int(stmt, 0) != 0;
+        }
+    }
+    if (stmt) sqlite3_finalize(stmt);
+
+    if (!result) {
+        // If no current state, try last log entry
+        const char* log_sql = "SELECT suction_on FROM suction_log WHERE room_id = ? ORDER BY id DESC LIMIT 1";
+        if (sqlite3_prepare_v2(db, log_sql, -1, &stmt, nullptr) == SQLITE_OK) {
+            sqlite3_bind_int(stmt, 1, room_id);
+            if (sqlite3_step(stmt) == SQLITE_ROW) {
+                result = sqlite3_column_int(stmt, 0) != 0;
+            }
+        }
+        if (stmt) sqlite3_finalize(stmt);
+    }
+    return result;
+}
+
+void insert_room(sqlite3* db, const OperatingRoom& r)
+{
+    // Insert into rooms table (ignore if exists)
+    const char* insert_room_sql = "INSERT OR IGNORE INTO rooms (room_number) VALUES (?)";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, insert_room_sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_text(stmt, 1, r.room_number.c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_step(stmt);
+    }
+    if (stmt) sqlite3_finalize(stmt);
+
+    // Get the room id
+    int room_id = 0;
+    const char* sel = "SELECT id FROM rooms WHERE room_number = ? LIMIT 1";
+    if (sqlite3_prepare_v2(db, sel, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_text(stmt, 1, r.room_number.c_str(), -1, SQLITE_TRANSIENT);
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            room_id = sqlite3_column_int(stmt, 0);
+        }
+    }
+    if (stmt) sqlite3_finalize(stmt);
+
+    // Insert today's schedule if schedule is provided in "HH:MM - HH:MM" format
+    if (room_id > 0 && !r.schedule.empty()) {
+        std::string start, end;
+        size_t dash = r.schedule.find('-');
+        if (dash != std::string::npos) {
+            auto trim = [](std::string s) {
+                size_t a = s.find_first_not_of(" \t");
+                size_t b = s.find_last_not_of(" \t");
+                if (a == std::string::npos) return std::string();
+                return s.substr(a, b - a + 1);
+            };
+            start = trim(r.schedule.substr(0, dash));
+            end = trim(r.schedule.substr(dash + 1));
+        }
+
+        // Use today's date
+        auto now = std::chrono::system_clock::now();
+        std::time_t tt = std::chrono::system_clock::to_time_t(now);
+        std::tm local_tm{};
+#ifdef _WIN32
+        localtime_s(&local_tm, &tt);
+#else
+        localtime_r(&tt, &local_tm);
+#endif
+        char date_buf[11];
+        std::strftime(date_buf, sizeof(date_buf), "%Y-%m-%d", &local_tm);
+
+        const char* insert_schedule_sql = R"(
+            INSERT INTO room_schedule (room_id, procedure, start_time, end_time, date)
+            VALUES (?, ?, ?, ?, ?)
+        )";
+        if (sqlite3_prepare_v2(db, insert_schedule_sql, -1, &stmt, nullptr) == SQLITE_OK) {
+            sqlite3_bind_int(stmt, 1, room_id);
+            sqlite3_bind_text(stmt, 2, r.procedure.c_str(), -1, SQLITE_TRANSIENT);
+            if (!start.empty())
+                sqlite3_bind_text(stmt, 3, start.c_str(), -1, SQLITE_TRANSIENT);
+            else
+                sqlite3_bind_null(stmt, 3);
+            if (!end.empty())
+                sqlite3_bind_text(stmt, 4, end.c_str(), -1, SQLITE_TRANSIENT);
+            else
+                sqlite3_bind_null(stmt, 4);
+            sqlite3_bind_text(stmt, 5, date_buf, -1, SQLITE_TRANSIENT);
+            sqlite3_step(stmt);
+        }
+        if (stmt) sqlite3_finalize(stmt);
+    }
+}
+
+void log_suction_status(sqlite3* db, int room_id, bool suction_on)
+{
+    // Use existing update_suction which logs + upserts
+    update_suction(db, room_id, suction_on);
+}
+
+// ───────────────────────────────────────────────
 // MAIN APPLICATION
 // ───────────────────────────────────────────────
 int main()
@@ -380,10 +476,14 @@ int main()
     sqlite3* db = init_database("suction_sense.db");
     if (!db) return 1;
 
-    // Seed database if empty
-    const char* count_sql = "SELECT COUNT(*) FROM operating_rooms";
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(db, count_sql, -1, &stmt, nullptr);
+    // Seed database if empty (rooms table)
+    const char* count_sql = "SELECT COUNT(*) FROM rooms";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, count_sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return 1;
+    }
     sqlite3_step(stmt);
     int count = sqlite3_column_int(stmt, 0);
     sqlite3_finalize(stmt);
@@ -399,9 +499,17 @@ int main()
         };
         for (auto& r : seed) {
             insert_room(db, r);
-            // Log initial suction state
-            int id = (int)sqlite3_last_insert_rowid(db);
-            log_suction_status(db, id, r.suction_on);
+
+            // Get the room id (ensures correct id)
+            sqlite3_stmt* tmpstmt = nullptr;
+            int id = 0;
+            if (sqlite3_prepare_v2(db, "SELECT id FROM rooms WHERE room_number = ? LIMIT 1", -1, &tmpstmt, nullptr) == SQLITE_OK) {
+                sqlite3_bind_text(tmpstmt, 1, r.room_number.c_str(), -1, SQLITE_TRANSIENT);
+                if (sqlite3_step(tmpstmt) == SQLITE_ROW) id = sqlite3_column_int(tmpstmt, 0);
+            }
+            if (tmpstmt) sqlite3_finalize(tmpstmt);
+
+            if (id > 0) log_suction_status(db, id, r.suction_on);
         }
         CROW_LOG_INFO << "Seeded initial room data.";
     }
