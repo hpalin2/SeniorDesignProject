@@ -158,7 +158,6 @@ Hugh and I attended OH at 4pm, and we were able to get our hands on a different 
 
 We had our team meeting today at 6pm
 
-
 Software Recap:
 
 To live update site:
@@ -179,3 +178,9 @@ To get this set up:
 3. Flash the "esp_mqtt_test.c" sketch to the esp32
 4. You should see an output of suction/dev1/telemetry {"room_id":"OR-DEV","flow_lpm":0.45,"motion":true} appear in the sub terminal
 
+
+**2025-10/23 - Breadboard Demo 2**
+
+Today I worked on getting our breadboard demo wired up and working. The ESP32 now is able to stream motion status to an external server and display the output in the terminal
+
+The code breadboard_demo2.c contains the esp32 code for this demo. On the server side, follow the steps for hosting the MQTT broker and subscriber
