@@ -43,7 +43,7 @@ This week we discussed multiple times the breadboard design. We have about finis
 
 10/22/25: I worked on talking to Greg and the rest of the Carle team over email to discuss packages and test stand design. Worked with Jeremy on fixing ESP32 brownout, we were able to get a new breadboard from the locker. I am working on getting the parts to the machine shop so they can begin construction of our test stand.
 
-10/24/25: I forgot to mention the work I did yesterday: I went to Ace Hardware and measured the size of our extension pipe to determine if the vacuum hose was 2.5 in. diameter outer not inner. I also emailed Martin to get a status on when I can pick up our parts. Seems like I can grab it on Monday. I got the room calendar and state to update for room 2, but not the other rooms. The room_schedule works though. 
+10/24/25: I forgot to mention the work I did yesterday: I went to Ace Hardware and measured the size of our extension pipe to determine if the vacuum hose was 2.5 in. diameter outer not inner. I also emailed Martin to get a status on when I can pick up our parts. Seems like I can grab it on Monday. I got the room calendar and state to update for room 2, but not the other rooms. The room_schedule works though.
 
 Commands:
 sqlite3 suction_sense.db -> open our database
@@ -54,6 +54,7 @@ VALUES (1, 'Appendectomy', '13:00', '15:30', '2025-10-24');
 -> insertion example for room schedule
 UPDATE suction_state
 SET suction_on = 1,
-    last_updated = datetime('now')
+last_updated = datetime('now')
 WHERE room_id = 2;
 
+10/29/25: Last few days I have been working on getting our parts. I picked them up yesterday from Michael Martin, seems he might've gone on leave in the middle of our correspondence. It was very difficult to collect our parts. I finally got our parts to the machine shop and now they are constructing our test stand. Now we just have to connect everything and print a housing for our motion sensor.
