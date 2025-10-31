@@ -201,3 +201,10 @@ Hugh - Auto Refresh UI, Change colors dynamically based on state
 Suley - Order parts and continue fixing PCB
 
 I refactored our codebase to be much more modular, separating the backend, api routing, and frontend/UI.
+
+New Build Command for Mac: 
+  c++ -std=gnu++17 \
+  -Iinclude -I/opt/homebrew/include \
+  src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/main.cpp \
+  -L/opt/homebrew/lib -lsqlite3 -pthread \
+  -o suction_sense
