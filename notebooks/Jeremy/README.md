@@ -184,3 +184,20 @@ To get this set up:
 Today I worked on getting our breadboard demo wired up and working. The ESP32 now is able to stream motion status to an external server and display the output in the terminal
 
 The code breadboard_demo2.c contains the esp32 code for this demo. On the server side, follow the steps for hosting the MQTT broker and subscriber
+
+**2025-10/29 - Breadboard Demo**
+
+We demo'd our esp32 streaming data to the mosquitto server. We also showed our UI design to the TA
+
+**2025-10/31 - Group Meeting**
+
+We are on track for our software development, however we are very behind on our hardware due to some ordering and design hiccups
+
+Jeremy - Figure out how to read from mosquitto subscriber and use it to update the DB. Also, configure the Pi to be able to read ESP32 Messages
+Refactor & separate code
+
+Hugh - Auto Refresh UI, Change colors dynamically based on state
+
+Suley - Order parts and continue fixing PCB
+
+I refactored our codebase to be much more modular, separating the backend, api routing, and frontend/UI.
