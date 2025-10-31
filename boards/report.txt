@@ -1,0 +1,50 @@
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-Edge_Cuts.gbr'.
+Created Gerber job file '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-job.gbrjob'.
+Info: Done.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-Edge_Cuts.gbr'.
+Created Gerber job file '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-job.gbrjob'.
+Info: Done.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-Edge_Cuts.gbr'.
+Created Gerber job file '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-job.gbrjob'.
+Info: Done.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-F_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-B_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-Edge_Cuts.gbr'.
+Created Gerber job file '/Users/strictlysuley/Documents/SeniorDesignProject/boards/ECE 445 - Suction Sense PCB-1-job.gbrjob'.
+Info: Done.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-F_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-B_Cu.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-F_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-B_Silkscreen.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-F_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-B_Mask.gbr'.
+Plotted to '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-Edge_Cuts.gbr'.
+Created Gerber job file '/Users/strictlysuley/Documents/PCBREV3/ECE 445 - Suction Sense PCB-1-job.gbrjob'.
+Info: Done.
+Info: Done.
+Info: Done.
+Info: Done.
+Info: Done.
+Info: Done.
