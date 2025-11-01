@@ -1,23 +1,26 @@
 #include <crow.h>
 #include "repo.hpp"
 #include "api.hpp"
+#include "mqtt_ingestor.hpp"
 #include <iostream>
 #include <cstdlib>
 
 int main() {
     std::cerr << ">>> ENTER MAIN <<<\n";
 
-    Repo repo("suction_sense.db");
-    if (!repo.ok()) { std::cerr << "[FATAL] DB not OK\n"; return 1; }
-    repo.seed_if_empty();
-    // std::cerr << ">>> AFTER SEED <<<\n";
+    Repo repo("suction_sense.db"); //Create the DB
+    repo.seed_if_empty(); //init DB
+
+    //Mqtt subscriber
+    MqttIngestor ingestor(repo, "localhost", 1883, "suction/+/state", 1);
+    if (!ingestor.start()) {
+        CROW_LOG_ERROR << "MQTT ingestor failed to start";
+    }
 
     crow::SimpleApp app;
     app.loglevel(crow::LogLevel::Debug);
 
-    std::cerr << ">>> BEFORE register_routes <<<\n";
     register_routes(app, repo);
-    std::cerr << ">>> AFTER register_routes <<<\n";
 
     uint16_t port = 18080;
     if (const char* p = std::getenv("PORT")) {
@@ -28,7 +31,6 @@ int main() {
     std::cerr << ">>> STARTING HTTP on http://127.0.0.1:" << port << " <<<\n";
     try {
         app.port(port).bindaddr("127.0.0.1").multithreaded().run();
-        std::cerr << ">>> run() returned (should not print) <<<\n";
     } catch (const std::exception& ex) {
         std::cerr << "[FATAL] Crow failed to start: " << ex.what() << "\n";
         return 1;

@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sstream>
 
+//helper to format timestamp for DB
 std::string format_timestamp() {
     const auto now = std::chrono::system_clock::now();
     const std::time_t tt = std::chrono::system_clock::to_time_t(now);

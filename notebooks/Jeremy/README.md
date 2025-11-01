@@ -205,6 +205,17 @@ I refactored our codebase to be much more modular, separating the backend, api r
 New Build Command for Mac: 
   c++ -std=gnu++17 \
   -Iinclude -I/opt/homebrew/include \
-  src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/main.cpp \
-  -L/opt/homebrew/lib -lsqlite3 -pthread \
+  src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/mqtt_ingestor.cpp src/main.cpp \
+  -L/opt/homebrew/lib -lsqlite3 -lmosquitto -pthread \
+  -Wl,-rpath,/opt/homebrew/lib \
   -o suction_sense
+
+**2025-11/1 - MQTT_Ingestor**
+
+Today I continued reorganizing our codebase into a more modular format. Then, I created an mqtt_ingestor that allows this application to subscribe to our ESP32 and collect suction telemetry messages. Those messages then are used to update the DB, which in turn updates our UI in near real-time. 
+
+1. To get this to work, compile and start the application normally
+2. In another terminal: Run mosquitto -v. This starts the broker
+3. To test, send mock publisher messages to the broker ex: mosquitto_pub -h (target IP) -p 1883 -t 'suction/OR 1/state' -m '{"suction_on":false}'
+4. Observe the UI dynamically change based on the status of suction
+

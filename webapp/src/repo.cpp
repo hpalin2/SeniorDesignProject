@@ -8,7 +8,7 @@ namespace {
     }
 }
 
-Repo::Repo(const std::string& db_path) {
+Repo::Repo(const std::string& db_path) { 
     if (sqlite3_open(db_path.c_str(), &db_) != SQLITE_OK) {
         CROW_LOG_ERROR << "Cannot open database: " << sqlite3_errmsg(db_);
         if (db_) { sqlite3_close(db_); db_ = nullptr; }
@@ -38,6 +38,7 @@ void Repo::exec_ddl(const char* sql) {
     }
 }
 
+//This created the 4 tables for our DB
 void Repo::init_schema() {
     const char* create_rooms = R"(
         CREATE TABLE IF NOT EXISTS rooms (
@@ -80,6 +81,7 @@ void Repo::init_schema() {
     CROW_LOG_INFO << "Database schema ready.";
 }
 
+//initilaize the DB with mock OR Data
 void Repo::seed_if_empty() {
     const char* count_sql = "SELECT COUNT(*) FROM rooms";
     sqlite3_stmt* s = nullptr;
@@ -114,6 +116,8 @@ void Repo::seed_if_empty() {
     CROW_LOG_INFO << "Seeded initial room data.";
 }
 
+//This feeds our UI
+//For each room, get its current OR event and read its latest suction status
 std::vector<OperatingRoom> Repo::load_rooms() {
     std::lock_guard<std::mutex> lk(mtx_);
     std::vector<OperatingRoom> rooms;
@@ -142,6 +146,7 @@ std::vector<OperatingRoom> Repo::load_rooms() {
     return rooms;
 }
 
+//returns current procedure window if now is between start_time and end_time
 RoomEvent Repo::get_current_event_for_room(int room_id) {
     RoomEvent event{"Idle", "", "", false};
 
@@ -191,6 +196,7 @@ RoomEvent Repo::get_current_event_for_room(int room_id) {
     return event;
 }
 
+//reads suction_state; if missing, falls back to the latest suction_log
 bool Repo::get_latest_suction_status(int room_id) {
     const char* sql = "SELECT suction_on FROM suction_state WHERE room_id = ?";
     sqlite3_stmt* s = nullptr;
@@ -217,6 +223,8 @@ bool Repo::get_latest_suction_status(int room_id) {
     return result;
 }
 
+//Reads existing state; if changed or missing, appends to suction_log with current timestamp.
+//Update suction_state with the new value and last_updated.
 void Repo::update_suction(int room_id, bool suction_on) {
     std::lock_guard<std::mutex> lk(mtx_);
 
@@ -259,6 +267,7 @@ void Repo::update_suction(int room_id, bool suction_on) {
     sqlite3_finalize(s);
 }
 
+//Insert a new room into the UI
 void Repo::insert_room(const OperatingRoom& r) {
     // Insert (ignore if exists)
     {
@@ -333,4 +342,32 @@ void Repo::insert_room(const OperatingRoom& r) {
 
 void Repo::log_suction_status(int room_id, bool suction_on) {
     update_suction(room_id, suction_on); // already logs + upserts
+}
+
+//Resolve room id
+int Repo::ensure_room_id(const std::string& room_number) {
+    int room_id = 0;
+    {
+        std::lock_guard<std::mutex> lk(mtx_);
+        // Create if missing
+        const char* insert_sql = "INSERT OR IGNORE INTO rooms (room_number) VALUES (?)";
+        sqlite3_stmt* s = nullptr;
+        if (sqlite3_prepare_v2(db_, insert_sql, -1, &s, nullptr) == SQLITE_OK) {
+            bind_text(s, 1, room_number);
+            sqlite3_step(s);
+        }
+        if (s) sqlite3_finalize(s);
+
+        // Fetch id
+        const char* sel = "SELECT id FROM rooms WHERE room_number = ? LIMIT 1";
+        s = nullptr;
+        if (sqlite3_prepare_v2(db_, sel, -1, &s, nullptr) == SQLITE_OK) {
+            bind_text(s, 1, room_number);
+            if (sqlite3_step(s) == SQLITE_ROW) {
+                room_id = sqlite3_column_int(s, 0);
+            }
+        }
+        if (s) sqlite3_finalize(s);
+    }
+    return room_id;
 }

@@ -26,6 +26,9 @@ public:
     void update_suction(int room_id, bool suction_on);
     void insert_room(const OperatingRoom& r);
 
+    //map something like "OR 3" → rooms.id
+    int ensure_room_id(const std::string& room_number);
+
 private:
     // helpers (locked within public API)
     RoomEvent get_current_event_for_room(int room_id);
