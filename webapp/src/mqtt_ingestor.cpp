@@ -124,8 +124,6 @@ void MqttIngestor::on_message(struct mosquitto* /*m*/,
         if (room_id > 0) {
             self->repo_.update_suction(room_id, suction_on);
         }
-    } catch (...) {
-        // (optional) log parse/db errors; keep loop resilient
     }
 }
 

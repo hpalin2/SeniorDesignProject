@@ -215,7 +215,13 @@ New Build Command for Mac:
 Today I continued reorganizing our codebase into a more modular format. Then, I created an mqtt_ingestor that allows this application to subscribe to our ESP32 and collect suction telemetry messages. Those messages then are used to update the DB, which in turn updates our UI in near real-time. 
 
 1. To get this to work, compile and start the application normally
-2. In another terminal: Run mosquitto -v. This starts the broker
+2. In another terminal: Run mosquitto -v -c /opt/homebrew/etc/mosquitto/mosquitto.conf. This starts the broker on mac
+3. In another terminal start the subscriber: mosquitto_sub -h 127.0.0.1 -t 'suction/+/state' -v(localhost loopback)
 3. To test, send mock publisher messages to the broker ex: mosquitto_pub -h (target IP) -p 1883 -t 'suction/OR 1/state' -m '{"suction_on":false}'
 4. Observe the UI dynamically change based on the status of suction
 
+**2025-11/3 - ESP32 talks to Application**
+
+Today, I got the ESP32 to live update the Suction Sense application. I used our breadboard setup to simulate turning suction on and off, and modified the esp code to send a payload (suction/OR-DEV/state {"suction_on":false}) to the mosquitto broker running on my mac. Our new MQTT ingestor is already subscribed to the broker, and is able to receive the JSON payload. It updates the DB, which then updates the application UI. 
+
+To recreate this, flash the espToMQTT.c code to the ESP32 and modify the Wifi parameters. Then on the mac, run the same application and MQTT setup steps as before. You should see the OR room turn green when you put your hand near the motion sensor, and orange when you take it away.
