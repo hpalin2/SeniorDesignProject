@@ -60,3 +60,5 @@ WHERE room_id = 2;
 10/29/25: Last few days I have been working on getting our parts. I picked them up yesterday from Michael Martin, seems he might've gone on leave in the middle of our correspondence. It was very difficult to collect our parts. I finally got our parts to the machine shop and now they are constructing our test stand. Now we just have to connect everything and print a housing for our motion sensor.
 
 10/31/2025: Last few days we worked on setting up our pcb. I brought all of our parts then Suley lost one so we have to reorder. Now we ordered 5 of every part and will work on our new pcb. We also bought a programmer for our ESP32 since we forgot to add a program header. I now have to work on fixing the UI for colors and auto page refreshing.
+
+11/4/2025: Worked on finishing my progress on the webapp as well as finishing the individual progress report. We are meeting today at 5 to do some work and discuss.
