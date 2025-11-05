@@ -6,7 +6,7 @@
 #include <string>
 #include <thread>
 #include <atomic>
-
+#include <iostream>
 #include "repo.hpp"
 
 // -------- ctor / dtor --------
@@ -124,6 +124,8 @@ void MqttIngestor::on_message(struct mosquitto* /*m*/,
         if (room_id > 0) {
             self->repo_.update_suction(room_id, suction_on);
         }
+    } catch (const std::exception& e) {
+        std::cerr << "Error parsing MQTT message: " << e.what() << std::endl;
     }
 }
 
