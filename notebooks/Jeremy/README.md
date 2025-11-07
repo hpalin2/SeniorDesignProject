@@ -240,3 +240,4 @@ I followed the above tutorial to configure mqtt broker on the pi.
 
 I performed an End-to-End test of the ESP32 publishing messages to the Raspberry pi. I hosted the application locally on the pi and also configured it to run the mosquitto broker on startup. I was able to stream mock suction messages from the esp32 to the raspberry pi and observe the UI change in real-time.
 
+I also got the Pi touchscreen setup and running our application. Next for the software portion, we need to rework our logic on determining if suction is on unnecessarily or not. In addition, I want to find a way to host our application on lan so that I don't have to open it up on a browser every time.
