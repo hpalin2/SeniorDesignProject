@@ -1,6 +1,7 @@
 #include "views.hpp"
 #include "util.hpp"
 #include <sstream>
+#include <iostream>
 
 std::string render_dashboard(const std::vector<OperatingRoom>& rooms) {
     static const std::string css =
@@ -8,7 +9,8 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
 
     std::ostringstream cards;
     for (const auto& room : rooms) {
-        const bool ok = room.suction_on;
+        const bool suctionon = room.suction_on;
+        const bool ok = (suctionon && room.procedure != "Idle / Unscheduled") ||  (!suctionon && room.procedure == "Idle / Unscheduled");
         cards << "<article class='room-card " << (ok ? "room-card--ok" : "room-card--warn")
               << "' data-room-id='" << room.id << "'>";
         cards << "<div class='card-header'>";
@@ -18,8 +20,8 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
         cards << "<p class='meta'>" << room.procedure << "</p>";
         cards << "<p class='time'>" << room.schedule << "</p>";
         cards << "<div class='status'>";
-        cards << "<span class='icon'>" << (ok ? "🟢" : "🔴") << "</span>";
-        cards << "Suction: " << (ok ? "ON" : "OFF");
+        cards << "<span class='icon'>" << (suctionon ? "🟢" : "🔴") << "</span>";
+        cards << "Suction: " << (suctionon ? "ON" : "OFF");
         cards << "</div></article>";
     }
 
@@ -50,7 +52,7 @@ async function fetchData() {
       const card = document.querySelector(`[data-room-id='${room.id}']`);
       if (!card) return;
       const status = card.querySelector('.status');
-      const cardClass = room.suctionOn ? 'room-card--ok' : 'room-card--warn';
+      const cardClass = (room.suctionOn && room.procedure != "Idle / Unscheduled") ||  (!room.suctionOn && room.procedure == "Idle / Unscheduled") ? 'room-card--ok' : 'room-card--warn';
       card.classList.remove('room-card--ok','room-card--warn');
       card.classList.add(cardClass);
       status.innerHTML = `<span class='icon'>${room.suctionOn ? '🟢' : '🔴'}</span> Suction: ${room.suctionOn ? 'ON' : 'OFF'}`;
