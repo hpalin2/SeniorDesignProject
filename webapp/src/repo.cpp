@@ -90,14 +90,15 @@ void Repo::seed_if_empty() {
     int count = sqlite3_column_int(s, 0);
     sqlite3_finalize(s);
     if (count != 0) return;
-
+    // this is where we setup initial data of our database
     std::vector<OperatingRoom> seed = {
         {0, "OR 1", "General Surgery", "08:00 - 10:30", true},
         {0, "OR 2", "Orthopedic",       "07:30 - 11:00", false},
-        {0, "OR 3", "Neurosurgery",     "09:00 - 14:00", true},
-        {0, "OR 4", "Cardiac Surgery",  "08:30 - 12:00", true},
-        {0, "OR 5", "ENT Procedure",    "10:00 - 11:30", true},
-        {0, "OR 6", "Plastic Surgery",  "11:00 - 13:30", false},
+        {0, "OR 3", "Neurosurgery",     "09:00 - 14:00", false},
+        {0, "OR 4", "Cardiac Surgery",  "08:30 - 12:00", false},
+        {0, "OR 5", "ENT Procedure",    "10:00 - 11:30", false},
+        {0, "OR 6", "Plastic Surgery",  "01:00 - 23:30", false},
+        {0, "OR-DEV", "Plastic Surgery",  "01:00 - 23:30", false}
     };
 
     for (auto& r : seed) {
