@@ -97,8 +97,8 @@ void Repo::seed_if_empty() {
         {0, "OR 3", "Neurosurgery",     "09:00 - 14:00", false},
         {0, "OR 4", "Cardiac Surgery",  "08:30 - 12:00", false},
         {0, "OR 5", "ENT Procedure",    "10:00 - 11:30", false},
-        {0, "OR 6", "Plastic Surgery",  "01:00 - 23:30", false},
-        {0, "OR-DEV", "Plastic Surgery",  "01:00 - 23:30", false}
+        {0, "OR 6", "Plastic Surgery",  "01:00 - 23:30", true},
+        {0, "OR-DEV", "Plastic Surgery",  "01:00 - 23:30", true}
     };
 
     for (auto& r : seed) {
