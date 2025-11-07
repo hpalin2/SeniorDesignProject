@@ -225,3 +225,10 @@ Today I continued reorganizing our codebase into a more modular format. Then, I 
 Today, I got the ESP32 to live update the Suction Sense application. I used our breadboard setup to simulate turning suction on and off, and modified the esp code to send a payload (suction/OR-DEV/state {"suction_on":false}) to the mosquitto broker running on my mac. Our new MQTT ingestor is already subscribed to the broker, and is able to receive the JSON payload. It updates the DB, which then updates the application UI. 
 
 To recreate this, flash the espToMQTT.c code to the ESP32 and modify the Wifi parameters. Then on the mac, run the same application and MQTT setup steps as before. You should see the OR room turn green when you put your hand near the motion sensor, and orange when you take it away.
+
+**2025-11/6 - Raspberry Pi Setup**
+
+I flashed raspbian OS onto an sd card and configured it to allow headless ssh. I was able to ssh into it, install our dependencies, clone the git repo and compile + run our web application code.
+
+Raspberry pi compile command: g++ -std=gnu++17 -O2   -Iinclude -Ithird_party/crow/include   src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/mqtt_ingestor.cpp src/main.cpp   -lsqlite3 -lmosquitto -pthread   -o suction_sense_pi
+
