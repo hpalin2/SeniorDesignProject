@@ -10,7 +10,7 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
     std::ostringstream cards;
     for (const auto& room : rooms) {
         const bool suctionon = room.suction_on;
-        const bool ok = (!suctionon && room.procedure =="Idle / Unscheduled");
+        const bool ok = (suctionon && room.procedure != "Idle / Unscheduled") ||  (!suctionon && room.procedure == "Idle / Unscheduled");
         cards << "<article class='room-card " << (ok ? "room-card--ok" : "room-card--warn")
               << "' data-room-id='" << room.id << "'>";
         cards << "<div class='card-header'>";
@@ -52,7 +52,7 @@ async function fetchData() {
       const card = document.querySelector(`[data-room-id='${room.id}']`);
       if (!card) return;
       const status = card.querySelector('.status');
-      const cardClass = !suctionon && room.procedure =="Idle / Unscheduled" ? 'room-card--ok' : 'room-card--warn';
+      const cardClass = (room.suctionOn && room.procedure != "Idle / Unscheduled") ||  (!room.suctionOn && room.procedure == "Idle / Unscheduled") ? 'room-card--ok' : 'room-card--warn';
       card.classList.remove('room-card--ok','room-card--warn');
       card.classList.add(cardClass);
       status.innerHTML = `<span class='icon'>${room.suctionOn ? '🟢' : '🔴'}</span> Suction: ${room.suctionOn ? 'ON' : 'OFF'}`;
