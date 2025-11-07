@@ -232,3 +232,7 @@ I flashed raspbian OS onto an sd card and configured it to allow headless ssh. I
 
 Raspberry pi compile command: g++ -std=gnu++17 -O2   -Iinclude -Ithird_party/crow/include   src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/mqtt_ingestor.cpp src/main.cpp   -lsqlite3 -lmosquitto -pthread   -o suction_sense_pi
 
+**2025-11/7 - Raspberry Pi + ESP32 E2E Test**
+
+I performed an End-to-End test of the ESP32 publishing messages to the Raspberry pi. I hosted the application locally on the pi and also configured it to run the mosquitto broker on startup. I was able to stream mock suction messages from the esp32 to the raspberry pi and observe the UI change in real-time.
+
