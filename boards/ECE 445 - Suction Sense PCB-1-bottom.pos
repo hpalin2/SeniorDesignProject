@@ -1,0 +1,7 @@
+### Footprint positions - created on 2025-11-05T20:12:36-0600 ###
+### Printed by KiCad version 9.0.4
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val          Package                                      PosX       PosY       Rot  Side
+J4        Barrel_Jack  BarrelJack_CUI_PJ-036AH-SMT_Horizontal   106.3000  -115.2000   90.0000  bottom
+## End

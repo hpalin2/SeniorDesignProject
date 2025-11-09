@@ -1,0 +1,47 @@
+### Footprint positions - created on 2025-11-05T20:12:36-0600 ###
+### Printed by KiCad version 9.0.4
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                Package                                               PosX       PosY       Rot  Side
+C1        0.1uF              CP_Elec_8x5.4                                     138.1000  -107.7000    0.0000  top
+C2        100nF              CP_Elec_8x5.4                                     152.7000  -112.1000    0.0000  top
+C3        440uf              CP_Elec_8x5.4                                     152.9000  -126.4000    0.0000  top
+C4        22uF               CP_Elec_8x5.4                                     138.1000   -92.0000    0.0000  top
+C5        0.001uF            CP_Elec_8x5.4                                     167.5500  -112.4000    0.0000  top
+C6        4.7uF              C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       120.3000  -109.0000    0.0000  top
+C7        4.7uF              C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       135.0000  -120.1000    0.0000  top
+C8        1uF                C_0805_2012Metric_Pad1.18x1.45mm_HandSolder        98.9545   -69.3420    0.0000  top
+C9        10uF               C_0805_2012Metric_Pad1.18x1.45mm_HandSolder        96.0120  -106.2990  180.0000  top
+C10       40uF               C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       101.2190  -111.3790  -90.0000  top
+C11       22uf               C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       125.8570   -66.1670   90.0000  top
+C12       0.1uf              C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       130.0480   -66.1670   90.0000  top
+C13       1uf                C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       133.3500   -68.5800   90.0000  top
+D1        LED_Small          LED_0805_2012Metric                               105.7000   -70.1000  180.0000  top
+D2        LED_Small          LED_0805_2012Metric                               127.1625  -114.5000    0.0000  top
+J1        Paddle_Sensor      Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical    165.3540   -81.6610    0.0000  top
+J2        Motion_Sensor      Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical    167.3860   -69.7030  180.0000  top
+J3        Battery_Connector  BatteryHolder_Keystone_1057_1x2032                117.1000   -86.1000  -90.0000  top
+J5        Conn_01x06_Pin     Molex_KK-396_A-41791-0006_1x06_P3.96mm_Vertical   113.4230  -128.3970    0.0000  top
+L1        3.3uH              L_0805_2012Metric_Pad1.15x1.40mm_HandSolder       149.8000  -105.4000  180.0000  top
+L2        3.3uH              L_0805_2012Metric_Pad1.15x1.40mm_HandSolder        97.4090   -98.9330  180.0000  top
+R1        10K                R_0508_1220Metric                                 129.3000  -107.8000  180.0000  top
+R2        1.5K               R_0508_1220Metric                                 149.6000  -101.0000    0.0000  top
+R3        5.1K               R_0508_1220Metric                                 144.7000  -100.9000    0.0000  top
+R4        850                R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       105.8000   -65.5000    0.0000  top
+R5        2.2K               R_0508_1220Metric                                 154.3000  -101.0000    0.0000  top
+R6        1.5K               R_0508_1220Metric                                 127.2000  -102.2000   90.0000  top
+R7        120k               R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       142.6000  -114.5000    0.0000  top
+R8        1.5K               R_0508_1220Metric                                 121.7930   -68.0720    0.0000  top
+R9        5.1K               R_0508_1220Metric                                 124.9680   -73.0250  -90.0000  top
+R10       850                R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       120.4000  -114.5000  180.0000  top
+R11       100K               R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       100.4570  -103.7590    0.0000  top
+R12       20k                R_0805_2012Metric_Pad1.20x1.40mm_HandSolder        98.9575   -63.4990    0.0000  top
+R13       5k                 R_0805_2012Metric_Pad1.20x1.40mm_HandSolder        98.9575   -66.4490    0.0000  top
+R14       R                  R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       150.6060   -89.7890    0.0000  top
+TH1       Thermistor         R_0508_1220Metric                                 122.8000  -102.5000  180.0000  top
+U1        ESP32-WROOM-32E    ESP32-WROOM-32D                                   144.4000   -72.7310    0.0000  top
+U2        TPS2121RUXR        IC_TPS2121RUXR                                    103.3380   -74.9370    0.0000  top
+U3        AP62150Z6          SOT-563                                           150.3000  -118.7000    0.0000  top
+U4        MCP73831-2-OT      SOT-23-5                                          135.0625  -115.4500    0.0000  top
+U5        TPS61222DCKR       DCK0006A                                          100.5230  -107.4570    0.0000  top
+## End

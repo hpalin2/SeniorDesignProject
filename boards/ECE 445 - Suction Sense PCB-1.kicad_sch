@@ -4265,6 +4265,16 @@
 	)
 	(wire
 		(pts
+			(xy 95.25 119.38) (xy 95.25 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ca65af1-0894-42c7-b860-944869dbe7c2")
+	)
+	(wire
+		(pts
 			(xy 214.63 129.54) (xy 214.63 130.81)
 		)
 		(stroke
@@ -5592,16 +5602,6 @@
 			(type default)
 		)
 		(uuid "f242e83d-49ae-4611-80f5-923e462884f9")
-	)
-	(wire
-		(pts
-			(xy 95.25 119.38) (xy 95.25 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f400bfb3-68f1-4ff2-a64e-bdcd4fd3de78")
 	)
 	(wire
 		(pts
@@ -7896,7 +7896,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-563"
+		(property "Footprint" "Package_TO_SOT_SMD:TSOT-23-6_HandSoldering"
 			(at 195.58 142.24 0)
 			(effects
 				(font
@@ -8295,76 +8295,6 @@
 			(project ""
 				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
 					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 95.25 125.73 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "80c31e47-ff35-48c0-9abd-3511cc1ead8e")
-		(property "Reference" "R11"
-			(at 97.79 124.4599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100K"
-			(at 97.79 126.9999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 93.472 125.73 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 95.25 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 95.25 125.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "cb5c19ac-164a-476f-b96f-e9658dd51dfd")
-		)
-		(pin "1"
-			(uuid "f5643ad5-f0c6-4009-87dc-392541afe0bf")
-		)
-		(instances
-			(project ""
-				(path "/561ea10a-797a-46d1-9f30-325f0302a4a7"
-					(reference "R11")
 					(unit 1)
 				)
 			)
