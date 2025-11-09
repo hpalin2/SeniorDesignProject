@@ -3986,12 +3986,6 @@
 		(uuid "9cc62d77-ad3a-44ba-8047-d6b0f8dcbc00")
 	)
 	(junction
-		(at 35.56 33.02)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9ffcdc5a-4fa7-4a6c-9d9b-e1263146210d")
-	)
-	(junction
 		(at 102.87 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4032,6 +4026,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d2be77c0-a9a9-445f-a992-78e9893593ee")
+	)
+	(junction
+		(at 35.56 33.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e1bb07e4-a39f-4ee3-a54a-3f472c8607cc")
 	)
 	(junction
 		(at 167.64 139.7)
@@ -4923,6 +4923,16 @@
 	)
 	(wire
 		(pts
+			(xy 27.94 33.02) (xy 35.56 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88dfc8dd-fd0e-45d3-a97b-60099f26aa27")
+	)
+	(wire
+		(pts
 			(xy 130.81 121.92) (xy 130.81 118.11)
 		)
 		(stroke
@@ -4930,16 +4940,6 @@
 			(type default)
 		)
 		(uuid "8bd28876-7c8e-4219-86e6-426799246986")
-	)
-	(wire
-		(pts
-			(xy 27.94 33.02) (xy 35.56 33.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c6c7bfc-be6c-48a8-8e82-952d2dd8c32c")
 	)
 	(wire
 		(pts
@@ -6269,7 +6269,7 @@
 				)
 			)
 		)
-		(property "Value" "L"
+		(property "Value" "2.2uH"
 			(at 91.44 119.38 90)
 			(effects
 				(font
@@ -7143,7 +7143,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "496b3466-e774-4387-9c8b-35fc9774136d")
 		(property "Reference" "#PWR015"
 			(at 24.13 34.29 0)
@@ -7155,7 +7154,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 24.13 33.02 0)
+			(at 21.59 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
