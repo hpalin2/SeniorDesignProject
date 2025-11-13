@@ -62,3 +62,5 @@ WHERE room_id = 2;
 10/31/2025: Last few days we worked on setting up our pcb. I brought all of our parts then Suley lost one so we have to reorder. Now we ordered 5 of every part and will work on our new pcb. We also bought a programmer for our ESP32 since we forgot to add a program header. I now have to work on fixing the UI for colors and auto page refreshing.
 
 11/4/2025: Worked on finishing my progress on the webapp as well as finishing the individual progress report. We are meeting today at 5 to do some work and discuss.
+
+11/13/2025: This week I worked on cordinating with the machine shop to ensure our test stand would be finished. We have come to the final design of the test stand and they are finishing assembly. Soon enough we will have completed and begin testing. Just waiting on the PCB from course staff.
