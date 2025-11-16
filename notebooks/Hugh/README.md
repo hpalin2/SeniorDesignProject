@@ -67,4 +67,4 @@ WHERE room_id = 2;
 
 11/13/2025: This week I worked on cordinating with the machine shop to ensure our test stand would be finished. We have come to the final design of the test stand and they are finishing assembly. Soon enough we will have completed and begin testing. Just waiting on the PCB from course staff.
 
-11/16/2025: I am now working on fixing our database schema as we are not able to interface with EPIC. We got our first board working after a lot of fixes.
+11/16/2025: I am now working on fixing our database schema as we are not able to interface with EPIC. We got our first board working after a lot of fixes. Now we have a boolean for our database schema all we have to do is test this with our board.
