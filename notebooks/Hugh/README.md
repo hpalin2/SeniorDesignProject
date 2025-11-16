@@ -63,4 +63,8 @@ WHERE room_id = 2;
 
 11/4/2025: Worked on finishing my progress on the webapp as well as finishing the individual progress report. We are meeting today at 5 to do some work and discuss.
 
+11/7/2025: Jeremy and I fixed the UI it now works as intended we just have to fix the database schema. The last few days I have been working on that.
+
 11/13/2025: This week I worked on cordinating with the machine shop to ensure our test stand would be finished. We have come to the final design of the test stand and they are finishing assembly. Soon enough we will have completed and begin testing. Just waiting on the PCB from course staff.
+
+11/16/2025: I am now working on fixing our database schema as we are not able to interface with EPIC. We got our first board working after a lot of fixes. Now we have a boolean for our database schema all we have to do is test this with our board.
