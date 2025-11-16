@@ -14,7 +14,7 @@ Operating Room, Room Event
 struct OperatingRoom {
     int id;
     string room_number;
-    string procedure;
+    bool occupency;
     string schedule;
     bool suction_on;
 };

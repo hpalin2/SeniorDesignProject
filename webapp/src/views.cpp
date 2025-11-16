@@ -10,14 +10,15 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
     std::ostringstream cards;
     for (const auto& room : rooms) {
         const bool suctionon = room.suction_on;
-        const bool ok = (suctionon && room.procedure != "Idle / Unscheduled") ||  (!suctionon && room.procedure == "Idle / Unscheduled");
+        const bool ok = (suctionon && room.occupency) ||  (!suctionon && !room.occupency);
         cards << "<article class='room-card " << (ok ? "room-card--ok" : "room-card--warn")
               << "' data-room-id='" << room.id << "'>";
         cards << "<div class='card-header'>";
         cards << "<h3>" << room.room_number << "</h3>";
         if (!ok) { cards << "<div class='status-icon' aria-hidden='true'>⚠️</div>"; }
         cards << "</div>";
-        cards << "<p class='meta'>" << room.procedure << "</p>";
+        // meta shows the numeric occupancy (1 or 0) for quick debugging
+        cards << "<p class='meta'>" << (room.occupency ? "1" : "0") << "</p>";
         cards << "<p class='time'>" << room.schedule << "</p>";
         cards << "<div class='status'>";
         cards << "<span class='icon'>" << (suctionon ? "🟢" : "🔴") << "</span>";
@@ -51,11 +52,30 @@ async function fetchData() {
     rooms.forEach(room => {
       const card = document.querySelector(`[data-room-id='${room.id}']`);
       if (!card) return;
-      const status = card.querySelector('.status');
-      const cardClass = (room.suctionOn && room.procedure != "Idle / Unscheduled") ||  (!room.suctionOn && room.procedure == "Idle / Unscheduled") ? 'room-card--ok' : 'room-card--warn';
+
+      // update class
+      const cardClass = (room.suctionOn && room.occupency) ||  (!room.suctionOn && !room.occupency) ? 'room-card--ok' : 'room-card--warn';
       card.classList.remove('room-card--ok','room-card--warn');
       card.classList.add(cardClass);
-      status.innerHTML = `<span class='icon'>${room.suctionOn ? '🟢' : '🔴'}</span> Suction: ${room.suctionOn ? 'ON' : 'OFF'}`;
+
+      // update status (suction icon + text)
+      const status = card.querySelector('.status');
+      if (status) {
+        status.innerHTML = `<span class='icon'>${room.suctionOn ? '🟢' : '🔴'}</span> Suction: ${room.suctionOn ? 'ON' : 'OFF'}`;
+      }
+
+      // update numeric occupancy display (meta)
+      const meta = card.querySelector('.meta');
+      if (meta) {
+        // ensure we display '1' or '0' (not 'true'/'false')
+        meta.textContent = room.occupency ? '1' : '0';
+      }
+
+      // update last-changed timestamp display
+      const timeEl = card.querySelector('.time');
+      if (timeEl) {
+        timeEl.textContent = room.schedule ? room.schedule : '';
+      }
     });
   } catch (e) { console.error('update error', e); }
 }
