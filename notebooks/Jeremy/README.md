@@ -283,3 +283,18 @@ Once we have our full system testing and the database schema finalized, I'll loo
 
 I need to rebuild and reseed the suction database on the pi. 
 
+
+**2025-11/14 - Group Meeting**
+
+---
+
+Met with my group to discuss hardware logistics. Additionally, I demo'd our currently working software component to the rest of the team
+
+
+**2025-11/116 - PCB Integration**
+
+---
+
+Suley was able to get our PCB working, so I helped him flash our firmware code and test that our application worked with the on-board esp. Once that worked, I wrote another sketch to test our adafruit PIR motion sensor, and was able the dev board to stream motion to the app. I tested this again successfully with the pcb. The motion sensor code is now located in espMotion.c
+
+I also worked with Hugh to create a new schema for our DB accounting for motion
