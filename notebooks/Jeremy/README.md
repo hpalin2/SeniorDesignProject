@@ -94,9 +94,10 @@ The goal is to be able to build and run a simple crow web app. I was able to hos
 
 **2025-10/15 - Software Design Stage 1**
 
+---
+
 Today, my team and I met to discuss software planning as well as machine shop logistics. Below is information I gathered on setting up the MQTT broker/client for our app to read telemetry from the ESP32
 
----
 1. Set up simple crow app -> make webpage Hugh/Suley
 2. Set up a MQTT Server, stream data from motion -> Jeremy
 3. Inside Crow app, set up MQTT Client -> subscribed to server on ESP32 -> Jeremy
@@ -119,9 +120,13 @@ On the subscriber terminal, you should be able to see "test/hello hi" outputted.
 
 **2025-10/17 - Software Design Stage 1 cont'd**
 
+---
+
 Met with group to discuss software design plan and attempt to set up the MQTT publisher on the ESP32. I was having some issues with brownout, so I planned on going to the lab on Saturday to utilize the DC power supply
 
 **2025-10/17 - Software Design Stage 1 cont'd**
+
+---
 
 Unfortunately, even with the DC power supply, my esp32 seems to still be browning out. However, I discovered that to actually receive messages I need to manually configure my mosquitto protocol as shown below:
 
@@ -136,6 +141,8 @@ I'm struggling to understand why it's still browning out however, since the DC p
 
 **2025-10/17 - Software Design Stage 1 cont'd**
 
+---
+
 Hugh did a good job getting the UI mocked up, so today I just figured out how to compile it on my end to get the static website running. I plan to demo this on Tuesday as a part of the capstone meeting with sharon. 
 
 Build command for mac: clang++ -std=c++17 \
@@ -145,14 +152,20 @@ Build command for mac: clang++ -std=c++17 \
 
 **2025-10/20 - ESP Debugging**
 
+---
+
   The ESP32 module we bought continuously browns out when we try running basic Wifi and BLE sketches, which doesn't make any sense. I went to the lab with Suleymaan to try and solve the issue by supplying DC power to the board instead of laptop power, but this didn't solve the issue. After an entire day of debugging, I think it might be an issue with the dev board
 
 
 **2025-10/21 - Suction Sense Check-In**
 
+---
+
 I attended a meeting with Sharon and Nathan to do a quick check-in with the capstone course director people. I went over the schedule we made for the project, and gave a quick software demo of our static website UI.
 
 **2025-10/22 - Group meeting**
+
+---
 
 Hugh and I attended OH at 4pm, and we were able to get our hands on a different ESP32 Dev Board. It is able to successfully run both the wifi and ble sketch, and we were able to check it out which solved a huge roadblock
 
@@ -169,6 +182,8 @@ open another terminal, run sq3lite suction_sense.db -> this opens the DB (Run di
 
 **2025-10/23 - ESP32 MQTT Publishing**
 
+---
+
 I was able to publish mock telemtry data from the ESP32 to the locally hosted MQTT broker, and also have it read properly by the MQTT Subscriber.
 
 To get this set up:
@@ -181,15 +196,21 @@ To get this set up:
 
 **2025-10/23 - Breadboard Demo 2**
 
+---
+
 Today I worked on getting our breadboard demo wired up and working. The ESP32 now is able to stream motion status to an external server and display the output in the terminal
 
 The code breadboard_demo2.c contains the esp32 code for this demo. On the server side, follow the steps for hosting the MQTT broker and subscriber
 
 **2025-10/29 - Breadboard Demo**
 
+---
+
 We demo'd our esp32 streaming data to the mosquitto server. We also showed our UI design to the TA
 
 **2025-10/31 - Group Meeting**
+
+---
 
 We are on track for our software development, however we are very behind on our hardware due to some ordering and design hiccups
 
@@ -212,6 +233,8 @@ New Build Command for Mac:
 
 **2025-11/1 - MQTT_Ingestor**
 
+---
+
 Today I continued reorganizing our codebase into a more modular format. Then, I created an mqtt_ingestor that allows this application to subscribe to our ESP32 and collect suction telemetry messages. Those messages then are used to update the DB, which in turn updates our UI in near real-time. 
 
 1. To get this to work, compile and start the application normally
@@ -222,17 +245,23 @@ Today I continued reorganizing our codebase into a more modular format. Then, I 
 
 **2025-11/3 - ESP32 talks to Application**
 
+---
+
 Today, I got the ESP32 to live update the Suction Sense application. I used our breadboard setup to simulate turning suction on and off, and modified the esp code to send a payload (suction/OR-DEV/state {"suction_on":false}) to the mosquitto broker running on my mac. Our new MQTT ingestor is already subscribed to the broker, and is able to receive the JSON payload. It updates the DB, which then updates the application UI. 
 
 To recreate this, flash the espToMQTT.c code to the ESP32 and modify the Wifi parameters. Then on the mac, run the same application and MQTT setup steps as before. You should see the OR room turn green when you put your hand near the motion sensor, and orange when you take it away.
 
 **2025-11/6 - Raspberry Pi Setup**
 
+---
+
 I flashed raspbian OS onto an sd card and configured it to allow headless ssh. I was able to ssh into it, install our dependencies, clone the git repo and compile + run our web application code.
 
 Raspberry pi compile command: g++ -std=gnu++17 -O2   -Iinclude -Ithird_party/crow/include   src/util.cpp src/repo.cpp src/views.cpp src/api.cpp src/mqtt_ingestor.cpp src/main.cpp   -lsqlite3 -lmosquitto -pthread   -o suction_sense_pi
 
 **2025-11/7 - Raspberry Pi + ESP32 E2E Test**
+
+---
 
 Tutorial: https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/
 
@@ -241,3 +270,16 @@ I followed the above tutorial to configure mqtt broker on the pi.
 I performed an End-to-End test of the ESP32 publishing messages to the Raspberry pi. I hosted the application locally on the pi and also configured it to run the mosquitto broker on startup. I was able to stream mock suction messages from the esp32 to the raspberry pi and observe the UI change in real-time.
 
 I also got the Pi touchscreen setup and running our application. Next for the software portion, we need to rework our logic on determining if suction is on unnecessarily or not. In addition, I want to find a way to host our application on lan so that I don't have to open it up on a browser every time.
+
+**2025-11/10 - Raspberry Pi Kiosk Mode**
+
+---
+
+I started the application on the pi in kiosk mode using this command: firefox --noerrdialogs --disable-infobars --kiosk http://localhost:PORT
+
+To exit, just do ALT-F4
+
+Once we have our full system testing and the database schema finalized, I'll look to create a script that will make the pi auto start in kiosk mode on boot.
+
+I need to rebuild and reseed the suction database on the pi. 
+
