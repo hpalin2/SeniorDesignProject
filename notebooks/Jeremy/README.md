@@ -291,10 +291,20 @@ I need to rebuild and reseed the suction database on the pi.
 Met with my group to discuss hardware logistics. Additionally, I demo'd our currently working software component to the rest of the team
 
 
-**2025-11/116 - PCB Integration**
+**2025-11/16 - PCB Integration**
 
 ---
 
 Suley was able to get our PCB working, so I helped him flash our firmware code and test that our application worked with the on-board esp. Once that worked, I wrote another sketch to test our adafruit PIR motion sensor, and was able the dev board to stream motion to the app. I tested this again successfully with the pcb. The motion sensor code is now located in espMotion.c
 
 I also worked with Hugh to create a new schema for our DB accounting for motion
+
+**2025-11/17 - Suction Sensor Test Module**
+
+---
+
+Hugh and I brought in the suction test module from the machine shop. I consulted the datasheet and wrote a quick firmware test(espSuction.c) to detect whether the AAFS Flow sensor switch was flipped. We were struggling to get a consistent suction reading from the switch.
+
+**2025-11/18 - Mock Demo**
+
+We mock demo'd our progress so far with the PCB and suction test module. Hugh discovered that the switch was having an internal mechanical issue, and once we addressed it, were able to finally get consistent readings from the AAFS paddle switch. I also worked on tuning the PIR motion sensor to get more consistent readings. I wrote a debouncer module for the PIR so that it gives more stable motion readings. (debouncedPIR.c)

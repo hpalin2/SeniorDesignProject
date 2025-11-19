@@ -1,7 +1,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
-#define MOTION_PIN 12
+#define MOTION_PIN 5
 
 // ── Wi-Fi & MQTT Config ───────────────────────────────────────────
 const char* WIFI_SSID  = "Iphone 110";
