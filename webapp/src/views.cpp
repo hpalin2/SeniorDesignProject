@@ -10,7 +10,7 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
     std::ostringstream cards;
     for (const auto& room : rooms) {
         const bool suctionon = room.suction_on;
-        const bool ok = (suctionon && room.occupency) ||  (!suctionon && !room.occupency);
+        const bool ok = (suctionon && room.occupancy) ||  (!suctionon && !room.occupancy);
         cards << "<article class='room-card " << (ok ? "room-card--ok" : "room-card--warn")
               << "' data-room-id='" << room.id << "'>";
         cards << "<div class='card-header'>";
@@ -18,7 +18,7 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
         if (!ok) { cards << "<div class='status-icon' aria-hidden='true'>⚠️</div>"; }
         cards << "</div>";
         // meta shows the numeric occupancy (1 or 0) for quick debugging
-        cards << "<p class='meta'>" << (room.occupency ? "1" : "0") << "</p>";
+        cards << "<p class='meta'>" << (room.occupancy ? "1" : "0") << "</p>";
         cards << "<p class='time'>" << room.schedule << "</p>";
         cards << "<div class='status'>";
         cards << "<span class='icon'>" << (suctionon ? "🟢" : "🔴") << "</span>";
@@ -42,45 +42,58 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
     page << "<footer><p>Last updated: <span id='last-updated'>" << format_timestamp() << "</span></p></footer>";
     page << "</main>";
 
-    page << R"(<script>
+        page << R"(<script>
 async function fetchData() {
   try {
     const res = await fetch('/api/rooms');
     const data = await res.json();
     const rooms = data.rooms;
-    document.getElementById('last-updated').textContent = data.generatedAt;
+    if (data.generatedAt) {
+      document.getElementById('last-updated').textContent = data.generatedAt;
+    }
+
     rooms.forEach(room => {
+      console.log('room from API:', room);
+
       const card = document.querySelector(`[data-room-id='${room.id}']`);
       if (!card) return;
 
-      // update class
-      const cardClass = (room.suctionOn && room.occupency) ||  (!room.suctionOn && !room.occupency) ? 'room-card--ok' : 'room-card--warn';
+      // USE THE EXACT NAMES FROM rooms_to_json
+      const suctionOn = room.suctionOn;     
+      const occupancy = room.occupancy;     
+      const schedule  = room.schedule;      
+
+      const cardClass = (suctionOn && occupancy) || (!suctionOn && !occupancy)
+        ? 'room-card--ok'
+        : 'room-card--warn';
+
       card.classList.remove('room-card--ok','room-card--warn');
       card.classList.add(cardClass);
 
-      // update status (suction icon + text)
       const status = card.querySelector('.status');
       if (status) {
-        status.innerHTML = `<span class='icon'>${room.suctionOn ? '🟢' : '🔴'}</span> Suction: ${room.suctionOn ? 'ON' : 'OFF'}`;
+        status.innerHTML =
+          `<span class='icon'>${suctionOn ? '🟢' : '🔴'}</span> ` +
+          `Suction: ${suctionOn ? 'ON' : 'OFF'}`;
       }
 
-      // update numeric occupancy display (meta)
       const meta = card.querySelector('.meta');
       if (meta) {
-        // ensure we display '1' or '0' (not 'true'/'false')
-        meta.textContent = room.occupency ? '1' : '0';
+        meta.textContent = occupancy ? '1' : '0';
       }
 
-      // update last-changed timestamp display
       const timeEl = card.querySelector('.time');
       if (timeEl) {
-        timeEl.textContent = room.schedule ? room.schedule : '';
+        timeEl.textContent = schedule ? schedule : '';
       }
     });
-  } catch (e) { console.error('update error', e); }
+  } catch (e) {
+    console.error('update error', e);
+  }
 }
 setInterval(fetchData, 5000);
 </script>)";
+
 
     page << "</body></html>";
     return page.str();

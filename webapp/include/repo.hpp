@@ -25,6 +25,7 @@ public:
     // Mutations
     void update_suction(int room_id, bool suction_on);
     void insert_room(const OperatingRoom& r);
+    void update_occupancy(int room_id, bool occupied);
 
     //map something like "OR 3" → rooms.id
     int ensure_room_id(const std::string& room_number);

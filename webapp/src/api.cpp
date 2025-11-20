@@ -10,7 +10,7 @@ static crow::json::wvalue rooms_to_json(const std::vector<OperatingRoom>& rooms)
         crow::json::wvalue item;
         item["id"]         = room.id;
         item["roomNumber"] = room.room_number;
-        item["occupency"]  = room.occupency;
+        item["occupancy"]  = room.occupancy;
         item["schedule"]   = room.schedule;
         item["suctionOn"]  = room.suction_on;
         list.push_back(std::move(item));

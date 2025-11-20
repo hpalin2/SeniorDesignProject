@@ -44,7 +44,6 @@ bool MqttIngestor::start() {
     mosquitto_message_callback_set(mosq_, &MqttIngestor::on_message);
     mosquitto_disconnect_callback_set(mosq_, &MqttIngestor::on_disconnect);
 
-    // Optional: automatic reconnect (1s..10s, exponential backoff)
     mosquitto_reconnect_delay_set(mosq_, 1, 10, true);
 
     int rc = mosquitto_connect(mosq_, host_.c_str(), port_, 30 /* keepalive */);
@@ -119,10 +118,12 @@ void MqttIngestor::on_message(struct mosquitto* /*m*/,
         // Parse JSON: expect {"suction_on": true/false, ...}
         nlohmann::json j = nlohmann::json::parse(payload);
         bool suction_on = j.value("suction_on", false);
+        bool occupancy     = j.value("motion", false);
 
         int room_id = self->repo_.ensure_room_id(room_number);
         if (room_id > 0) {
             self->repo_.update_suction(room_id, suction_on);
+            self->repo_.update_occupancy(room_id, occupancy);
         }
     } catch (const std::exception& e) {
         std::cerr << "Error parsing MQTT message: " << e.what() << std::endl;

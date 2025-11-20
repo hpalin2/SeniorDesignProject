@@ -300,6 +300,42 @@ void Repo::insert_room(const OperatingRoom& r) {
     if (s) sqlite3_finalize(s);
 }
 
+void Repo::update_occupancy(int room_id, bool occupied) {
+    std::lock_guard<std::mutex> lk(mtx_);
+
+    // Read current occupancy
+    const char* select_sql =
+        "SELECT occupancy FROM room_schedule WHERE id = ?";
+    sqlite3_stmt* s = nullptr;
+    int prev = 0;
+    bool exists = false;
+
+    if (sqlite3_prepare_v2(db_, select_sql, -1, &s, nullptr) == SQLITE_OK) {
+        sqlite3_bind_int(s, 1, room_id);
+        if (sqlite3_step(s) == SQLITE_ROW) {
+            prev   = sqlite3_column_int(s, 0);
+            exists = true;
+        }
+    }
+    if (s) sqlite3_finalize(s);
+
+    int new_val = occupied ? 1 : 0;
+    if (!exists || prev != new_val) {
+        const char* update_sql =
+            "UPDATE room_schedule "
+            "SET occupancy = ?, last_changed = ? "
+            "WHERE id = ?";
+
+        if (sqlite3_prepare_v2(db_, update_sql, -1, &s, nullptr) == SQLITE_OK) {
+            sqlite3_bind_int(s, 1, new_val);
+            bind_text(s, 2, format_timestamp());
+            sqlite3_bind_int(s, 3, room_id);
+            sqlite3_step(s);
+        }
+        if (s) sqlite3_finalize(s);
+    }
+}
+
 void Repo::log_suction_status(int room_id, bool suction_on) {
     update_suction(room_id, suction_on); // already logs + upserts
 }
