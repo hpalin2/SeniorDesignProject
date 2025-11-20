@@ -308,3 +308,11 @@ Hugh and I brought in the suction test module from the machine shop. I consulted
 **2025-11/18 - Mock Demo**
 
 We mock demo'd our progress so far with the PCB and suction test module. Hugh discovered that the switch was having an internal mechanical issue, and once we addressed it, were able to finally get consistent readings from the AAFS paddle switch. I also worked on tuning the PIR motion sensor to get more consistent readings. I wrote a debouncer module for the PIR so that it gives more stable motion readings. (debouncedPIR.c)
+
+**2025-11/19 - Spring Switch Testing**
+
+We discovered that the physical switch was getting detached from the spring mechanism after repeated use. After we fixed that, our suction sensor test module worked correctly. Also, by cutting the paddle, we are now able to avoid the issue where it gets stuck after turning the vaccuum on.
+
+**2025-11/20 - Final Firmware Implementation + Web App Integration**
+
+I wrote the complete firmware for our suction sense paddle as well as the PIR motion sensor, combining them with the MQTT subscriber module. On the web app side, I modified our ingestor and UI to account for Room occupancy/motion. I performed a full end-to-end integration test with a breadboard, verifying that suction/motion updates are correctly reflected in the web application. 
