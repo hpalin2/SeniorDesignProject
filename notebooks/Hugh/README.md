@@ -68,3 +68,11 @@ WHERE room_id = 2;
 11/13/2025: This week I worked on cordinating with the machine shop to ensure our test stand would be finished. We have come to the final design of the test stand and they are finishing assembly. Soon enough we will have completed and begin testing. Just waiting on the PCB from course staff.
 
 11/16/2025: I am now working on fixing our database schema as we are not able to interface with EPIC. We got our first board working after a lot of fixes. Now we have a boolean for our database schema all we have to do is test this with our board.
+
+11/17/2025: I picked up our test stand and began testing with it to try and understand the mechanics of our paddle since we have it in person now. Upon testing it I was able to see that turning on our vacuum at any spring level we would detect flow. We began having issues with the paddle getting stuck after suction.
+
+11/18/2025: Jeremy and I tested the firmware of detecting suction and wirelessly communicating it with our computer and we ran into the issue of the paddle getting stuck and our detection being very inconsistent. We tried our connections and they weren't the issue, we believe it might be an issue with our spring. We are going to keep trying different changes to the mechanic settings of our switch to improve its accuracy.
+
+11/19/2025: I worked on getting our test stand paddle sensor working, I did this by working with Skee from the machine shop. He was able to fix our issues of the paddle getting stuck by cutting off some of the material. I then worked on fixing our issue of our detection being inconsistent, by proding the switch with a screwdriver and doing research I found our switch wasn't connecting 100% of the time to our paddle. By adjusting its position with a screw driver it is fixed, we have debated on hot glueing the switch to the contact area with the paddle if this issue keeps coming up.
+
+11/20/2025: Worked on generating the first iteration of our housing for our pcb and motion sensor. This will allow us to have a nice pretty stand to complement our test stand for suction and keep everything pretty. I am now working on creating a final print for our housing.
