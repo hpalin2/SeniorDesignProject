@@ -44,6 +44,11 @@ waiting fro new PCB but parts ahve arrived hoping to get everythign soldered tog
 
 11/20/2025
 Put parts together and saw that the chraging circuit resistance was wrong the IC we are using is an MCP7515 which makes use of a bleed resistor in parallel with the actualy output to limit the charge current our 3.7v battery can take atmost 10ma of charging but to be on the safe side Im going to limit this to 5ma, meaning we would need a 100k ohm resistor since 5v/100k = 5ma
+Neeeded to get 0.8v accross the FB pin on the Buck converter read datasheet and saw that there needed to be a voltage divider confgiured as such so decided to use these values:
+<img width="1510" height="710" alt="image" src="https://github.com/user-attachments/assets/cb0ec2d7-2c2b-442e-8984-8054dec99ee3" />
+Once the 3.3v volts was being properly outputted by the 
+
+
 
 
 
