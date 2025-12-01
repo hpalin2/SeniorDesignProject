@@ -42,5 +42,8 @@ to mitigate these issue will need to find a battery that is 3.7v and can handle 
 11/13/2025
 waiting fro new PCB but parts ahve arrived hoping to get everythign soldered together for a final demo in 1 week.
 
+11/20/2025
+Put parts together and saw that the chraging circuit resistance was wrong the IC we are using is an MCP7515 which makes use of a bleed resistor in parallel with the actualy output to limit the charge current our 3.7v battery can take atmost 10ma of charging but to be on the safe side Im going to limit this to 5ma, meaning we would need a 100k ohm resistor since 5v/100k = 5ma
+
 
 
