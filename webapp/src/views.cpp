@@ -42,7 +42,7 @@ R"(body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,
     page << "<footer><p>Last updated: <span id='last-updated'>" << format_timestamp() << "</span></p></footer>";
     page << "</main>";
 
-        page << R"(<script>
+            page << R"(<script>
 async function fetchData() {
   try {
     const res = await fetch('/api/rooms');
@@ -59,9 +59,9 @@ async function fetchData() {
       if (!card) return;
 
       // USE THE EXACT NAMES FROM rooms_to_json
-      const suctionOn = room.suctionOn;     
-      const occupancy = room.occupancy;     
-      const schedule  = room.schedule;      
+      const suctionOn = room.suctionOn;     // <--- camelCase from backend
+      const occupancy = room.occupancy;     // boolean
+      const schedule  = room.schedule;      // timestamp / label
 
       const cardClass = (suctionOn && occupancy) || (!suctionOn && !occupancy)
         ? 'room-card--ok'
