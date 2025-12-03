@@ -322,3 +322,15 @@ We discovered that the physical switch was getting detached from the spring mech
 ---
 
 I wrote the complete firmware for our suction sense paddle as well as the PIR motion sensor, combining them with the MQTT subscriber module. On the web app side, I modified our ingestor and UI to account for Room occupancy/motion. I performed a full end-to-end integration test with a breadboard, verifying that suction/motion updates are correctly reflected in the web application. 
+
+**2025-12/1 - PCB Integration**
+
+---
+
+Today, my team and I worked on putting all the components together. We ran into some UI update issues early on because our polling script had some syntax errors. Additionally, we experienced a lot of issues with the motion sensor trying to balance the debounce time with quick UI updates. It also took us a long time to manually flash the ESP32 with firmware code, since we lost the header cable. We were able to finish and get everything displayed on our Pi screen
+
+**2025-12/1 - PCB Integration**
+
+---
+
+We presented our final demo to Professor Filfet as well as our TA Lukas. It was very successful, we were able to clearly demonstrate our project working and displaying the correct results.
