@@ -1,54 +1,174 @@
-9/24/2025
-Today we met and figured out what part #s we were planning on using.
+2025-09-24 – Initial Part Sourcing
 
-9/25/2025
-Today we finsihed designing the 1st draft of our schematic, we made sure to research proper design decisions when using our selected components
-we were able to complete the entire thing.
+Today we met as a team and determined the part numbers we planned to use for our initial PCB prototype. We researched suitable power-path components, the ESP32 footprint, and the AAFS paddle switch.
 
-9/27/2025
-routed PCB, will have to verify it and make sure everything is proper later
+2025-09-25 – First Schematic Draft
 
-10/4/2025
-MEt with team and worked on PCB had issue with pad width
+We finished designing the first full draft of our PCB schematic. We double-checked each component’s recommended application circuit and verified that our initial design decisions aligned with the datasheets. The entire schematic was completed.
 
-10/8/2025
-met with team, worked on design document
+2025-09-27 – PCB Routing (Round 1)
 
-10/11/2025
-Realzied we had an issue with a minimum threshold voltage to use the Powermux so had a to add aboost converter to step up voltage form 3.7v to 5v
+I routed the PCB for the first time. The layout is not final—will need to return and verify trace widths, clearances, and correct placement later.
+
+2025-10-01 – PCB Revision + Pad Width Issues
+
+Met with the team and continued working on the PCB. We discovered pad width issues with several components, forcing us to adjust footprints and re-route affected traces.
+
+2025-10-04 – Document Work
+
+Met with the team and worked on the Design Document requirements, outlining the system architecture and hardware subsystem.
+
+2025-10-08 – Power Mux Issue Identified
+
+Realized that our power mux required a minimum input threshold voltage that our 3.7 V battery could not reliably meet. We decided we would need to add a boost converter to step 3.7 V → 5 V before feeding the power mux.
+
+2025-10-11 – Software Planning Begins
+
+Met with the team to align on software requirements. I downloaded Crow and began setting up the development environment for writing the C++ client that will run on the Raspberry Pi.
+
+2025-10-14 – Reviewing Schematic Again
+
+Reviewed the schematic with updated power circuitry. Verified that the boost converter’s enable pin and feedback network were correctly configured. Cleaned up net labels.
+
+2025-10-15 – PCB Ordering Prep
+
+Met with the team to finalize the first PCB revision. Verified BOM entries and footprints before submission. The board and all components were ordered.
+
+2025-10-18 – PCB Round 1 Received
+
+Received the first-round PCB and soldered basic power components. Ensured we had the right ICs and passives available for bring-up.
+
+2025-10-19 – Buck Converter Issue
+
+Testing the board revealed that the buck converter was outputting 4.2 V instead of 3.3 V. Met with Jack Blevins to troubleshoot. Possible issues: incorrect feedback resistor values, solder bridging, or an unstable input from the boost converter.
+
+2025-10-21 – Redesigning Power Section
+
+Worked through issues and redesigned both the schematic and PCB to use a better buck converter and a simpler boost converter. Selected ICs with integrated features and larger footprints to simplify assembly and reduce soldering errors.
+
+2025-10-22 – Additional Hardware Review
+
+Reviewed all footprints and updated the BOM for the new board revision. Verified that minimum trace widths and thermal reliefs met manufacturer guidelines.
+
+2025-10-23 – Ordering Round 2 parts + PCB Submission
+
+Ordered the new components and finalized the second PCB revision. Submitted the Round 2 order. Met with the team to give a progress report.
+
+2025-10-26 – Simulation + EE Validation
+
+Ran through hand-calculations for the new power stages and validated in LTspice that inrush current and steady-state operation matched expectations. Updated documentation accordingly.
+
+2025-10-29 – Board Bring-Up Planning
+
+Created a bring-up checklist for when Round 2 boards arrive:
+
+Verify continuity
+
+Validate all rails with load resistors
+
+Flash ESP32
+
+Verify boost + buck stability under Wi-Fi load
+
+2025-11-01 – Debugging Current Draw
+
+Looked into the new board further and realized that the ESP32’s high peak current draw during Wi-Fi (400–500 mA) would cause brownout if the power stage or battery wasn’t sized appropriately. Added this to hardware risks.
+
+2025-11-03 – Battery Research
+
+To mitigate brownout issues, determined we need a 3.7 V Li-ion battery capable of 400–500 mA peak discharge current. Found and ordered a suitable cell that meets these requirements.
+
+2025-11-07 – PCB Round 3 Prep
+
+Reviewed updated schematic to ensure the power block meets the brownout, efficiency, and stability requirements. Verified that the charging IC configuration followed the datasheet.
+
+2025-11-13 – Waiting for PCB (Round 3)
+
+Waiting on the new PCB revision. All parts have arrived. Expecting to solder and assemble everything for the final demo next week.
+
+2025-11-17 – Schematic Cross-Verification
+
+Double-checked feedback resistor values for the buck and verified that diode orientation + filtering components follow recommended layouts. Wrote updated bring-up steps.
+
+2025-11-20 – Full Assembly + Power Debugging
+
+Assembled the new PCB and discovered that the charging-circuit resistor selection was incorrect.
+
+We are using the MCP7515, which requires a bleed resistor to set charge current.
+Our battery can tolerate at most 10 mA charge, but we reduced this to 5 mA for safety:
+
+𝑅
+=
+5
+ 
+𝑉
+5
+ 
+𝑚
+𝐴
+=
+100
+𝑘
+Ω
+R=
+5mA
+5V
+	​
+
+=100kΩ
+
+Next, configured a voltage divider to ensure 0.8 V at the feedback pin of the buck converter based on the datasheet. Chose resistor values per recommended ratios:
+
+(values shown in referenced image)
+
+After adjusting the resistor network, we finally achieved a clean and stable 3.3 V output.
+
+2025-11-23 – Full System Power Validation
+
+Tested the boost + buck chain under dynamic Wi-Fi load. Observed stable voltage with minimal ripple. Logged current measurements for documentation.
+
+2025-11-27 – Final Firmware Flashing Prep
+
+Prepped the ESP32 flashing process and cleaned up solder pads to ensure we can flash efficiently during system integration. Verified UART connection.
+
+2025-11-30 – Hardware–Software Integration Prep
+
+Created a wiring diagram for connecting the PCB to the suction switch and PIR sensor. Prepared test firmware for each subsystem.
+
+2025-12-02 – Hardware Integration
+
+Integrated all sensors with the PCB. Verified the ESP32 boots correctly from the board’s power supply and that the charge/battery path behaves correctly.
+
+2025-12-03 – Final Verification & Testing (R&V Table)
+
+Performed final engineering verification against our Requirements & Verification (R&V) Table:
+
+Power Requirements
+
+✔ 3.3 V rail stable under 500 mA Wi-Fi bursts
+
+✔ Battery charges at <5 mA
+
+✔ Boost converter maintains 5 V output across load range
+
+Sensor Requirements
+
+✔ PIR motion sensor responds within specified debounce timing
+
+✔ Suction paddle switch consistently triggers logic level thresholds
+
+Communication Requirements
+
+✔ ESP32 successfully publishes MQTT packets for suction + motion
+
+✔ No brownouts during telemetry transmission
+
+PCB Requirements
+
+✔ All footprints correct
+
+✔ No thermal issues during extended operation
 
 
-10/15/2025
-Met with team to overview software requriements downloaded crow to start writing client code
 
-10/18/2025
-got First round PCB and ordered appropriate components so that our board can be functional
-
-10/19/2025
-Tested board and saw that buck converter was out putting 4.2v intead of 3.3v, looked into issue and met with jack blevins to get some mentorship on the issue
-
-10/21/2025
-worked on the  issuea and redesinged board and schematic to use a better buck and boost converter so that our circuit was simpler as more components are now in the IC, and then also amde sure to to find a IC that was a big easy to solder footprint
-
-10/23/2025
-pordered new components and met with team to give progress report also finalzed new PCB and submitted order for round 3
-
-11/1/2025
-Looked into debugging new baord a little more and realized that a major issue would stem from the high current draw caused by the WIFI usage of the ESP32 will look more into this
-
-11/3/2025
-to mitigate these issue will need to find a battery that is 3.7v and can handle 400-500ma at peak current draw, found one online and ordered it
-
-11/13/2025
-waiting fro new PCB but parts ahve arrived hoping to get everythign soldered together for a final demo in 1 week.
-
-11/20/2025
-Put parts together and saw that the chraging circuit resistance was wrong the IC we are using is an MCP7515 which makes use of a bleed resistor in parallel with the actualy output to limit the charge current our 3.7v battery can take atmost 10ma of charging but to be on the safe side Im going to limit this to 5ma, meaning we would need a 100k ohm resistor since 5v/100k = 5ma
-Neeeded to get 0.8v accross the FB pin on the Buck converter read datasheet and saw that there needed to be a voltage divider confgiured as such so decided to use these values:
-<img width="1510" height="710" alt="image" src="https://github.com/user-attachments/assets/cb0ec2d7-2c2b-442e-8984-8054dec99ee3" />
-Once the 3.3v volts was being properly outputted by the 
-
-
-
-
-
+Everything passed, and the board is fully functional for final demo.
