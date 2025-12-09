@@ -99,22 +99,8 @@ Assembled the new PCB and discovered that the charging-circuit resistor selectio
 We are using the MCP7515, which requires a bleed resistor to set charge current.
 Our battery can tolerate at most 10 mA charge, but we reduced this to 5 mA for safety:
 
-𝑅
-=
-5
- 
-𝑉
-5
- 
-𝑚
-𝐴
-=
-100
-𝑘
-Ω
-R=
-5mA
-5V
+R = 80kohms
+5V/80k ~= 5ma
 	​
 
 =100kΩ
@@ -178,4 +164,5 @@ PCB Requirements
 
 
 Everything passed, and the board is fully functional for final demo.
+
 
