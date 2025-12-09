@@ -29,6 +29,8 @@ Met with the team to align on software requirements. I downloaded Crow and began
 2025-10-14 – Reviewing Schematic Again
 
 Reviewed the schematic with updated power circuitry. Verified that the boost converter’s enable pin and feedback network were correctly configured. Cleaned up net labels.
+<img width="1122" height="1404" alt="image" src="https://github.com/user-attachments/assets/6fcda5a1-fb62-4e06-87b1-5570f10a2121" />
+
 
 2025-10-15 – PCB Ordering Prep
 
@@ -122,6 +124,8 @@ Next, configured a voltage divider to ensure 0.8 V at the feedback pin of the bu
 (values shown in referenced image)
 
 After adjusting the resistor network, we finally achieved a clean and stable 3.3 V output.
+<img width="1436" height="1334" alt="image" src="https://github.com/user-attachments/assets/e2ac8ffb-feef-413e-84a2-c1d5f102818b" />
+
 
 2025-11-23 – Full System Power Validation
 
@@ -169,6 +173,9 @@ PCB Requirements
 
 ✔ No thermal issues during extended operation
 
+<img width="1396" height="738" alt="image" src="https://github.com/user-attachments/assets/887a251d-cb24-4b48-a4e1-2ea4212c5b92" />
+<img width="1646" height="738" alt="image" src="https://github.com/user-attachments/assets/8cf07e65-d695-4d89-af8f-6ae1eb4a59f0" />
 
 
 Everything passed, and the board is fully functional for final demo.
+
